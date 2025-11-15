@@ -22,7 +22,7 @@
 #include <string.h>
 #include <time.h>
 
-#define PUERTO 17278
+#define PUERTO 53278 
 #define TAM_BUFFER 516
 
 /*
@@ -125,7 +125,127 @@ char *argv[];
 	printf("Connected to %s on port %u at %s",
 			argv[1], ntohs(myaddr_in.sin_port), (char *) ctime(&timevar));
 
+	printf("Connected to %s on port %u at %s",
+        argv[1], ntohs(myaddr_in.sin_port), (char *) ctime(&timevar));
+
+	// ============ ESTILO LUIS - CLIENTE INTERACTIVO MORSE ============
+	char bufr[TAM_BUFFER];  // Buffer separado para recibir
+
+// *** PASO 1: RECIBIR MENSAJE DE BIENVENIDA (220) ***
+	memset(bufr, 0, TAM_BUFFER);
+	i = recv(s, bufr, TAM_BUFFER, 0);
+	if (i == -1) {
+		perror(argv[0]);
+		fprintf(stderr, "%s: Error al recibir bienvenida\n", argv[0]);
+		exit(1);
+	}
+
+	// Completar recepción
+	while (i < TAM_BUFFER) {
+		j = recv(s, &bufr[i], TAM_BUFFER-i, 0);
+		if (j == -1) {
+			perror(argv[0]);
+			exit(1);
+		}
+		if (j == 0) break;
+		i += j;
+	}
+
+	bufr[TAM_BUFFER-1] = '\0';
+	printf("S: %s\n", bufr);
+
+	// *** PASO 2: BUCLE INTERACTIVO (como Luis) ***
+	while(1)
+	{
+		// Limpiar buffers
+		memset(buf, 0, TAM_BUFFER);
+		memset(bufr, 0, TAM_BUFFER);
+		
+		// Leer comando del usuario
+		printf("C: ");
+		fflush(stdout);
+		
+		if (fgets(buf, TAM_BUFFER-3, stdin) == NULL) {
+			fprintf(stderr, "Error leyendo entrada\n");
+			break;
+		}
+		
+		// Quitar el \n que añade fgets
+		int len = strlen(buf);
+		if (len > 0 && buf[len-1] == '\n') {
+			buf[len-1] = '\0';
+		}
+		
+		// Añadir \r\n al final (protocolo)
+		strcat(buf, "\r\n");
+		
+		// Enviar mensaje al servidor
+		if (send(s, buf, TAM_BUFFER, 0) != TAM_BUFFER) {
+			perror(argv[0]);
+			fprintf(stderr, "%s: Error al enviar mensaje\n", argv[0]);
+			exit(1);
+		}
+
+		
+		
+		// Recibir respuesta del servidor
+        i = recv(s, bufr, TAM_BUFFER, 0);
+        if (i == -1) {
+            perror(argv[0]);
+            fprintf(stderr, "%s: error reading result\n", argv[0]);
+            exit(1);
+        }
+		
+		// Asegurar que se reciben todos los TAM_BUFFER bytes
+			while (i < TAM_BUFFER) {
+				j = recv(s, &bufr[i], TAM_BUFFER-i, 0);
+				if (j == -1) {
+					perror(argv[0]);
+					fprintf(stderr, "%s: error reading result\n", argv[0]);
+					exit(1);
+				}
+				i += j;
+			}
 	
+				
+	
+    
+    // Comprobar si es el mensaje de cierre (como Luis)
+    if (strstr(bufr, "221 Cerrando el servicio") != NULL) {
+        printf("\nServidor cerró la conexión. Saliendo...\n");
+        break;
+    }
+
+	// Asegurar terminación null
+    bufr[TAM_BUFFER-1] = '\0';
+
+	 // Mostrar respuesta del servidor
+    printf("S: %s\n", bufr);
+}
+	/* Now, shutdown the connection for further sends.
+	* This will cause the server to receive an end-of-file
+	* condition after it has received all the requests that
+	* have just been sent, indicating that we will not be
+	* sending any further requests.
+	*/
+
+	if (shutdown(s, 1) == -1) {
+		perror(argv[0]);
+		fprintf(stderr, "%s: unable to shutdown socket\n", argv[0]);
+		exit(1);
+	}
+	
+	/* Check to see if the read failed. */
+	if (i == -1) {
+		perror(argv[0]);
+		fprintf(stderr, "%s: error reading message\n", argv[0]);
+		exit(1);
+	}
+		
+    /* Print message indicating completion of task. */
+	time(&timevar);
+	printf("All done at %s", (char *)ctime(&timevar));
+}
 
 	/*for (i=1; i<=5; i++) {
 		*buf = i;
@@ -142,11 +262,14 @@ char *argv[];
 		 * have just been sent, indicating that we will not be
 		 * sending any further requests.
 		 */
+
+	/*
 	if (shutdown(s, 1) == -1) {
 		perror(argv[0]);
 		fprintf(stderr, "%s: unable to shutdown socket\n", argv[0]);
 		exit(1);
 	}
+	*/
 
 		/* Now, start receiving all of the replys from the server.
 		 * This loop will terminate when the recv returns zero,
@@ -156,7 +279,7 @@ char *argv[];
 		 */
 	//while (i = recv(s, buf, TAM_BUFFER, 0)) {
 		//Verificación
-		if (i == -1) {
+		/*if (i == -1) {
             perror(argv[0]);
 			fprintf(stderr, "%s: error reading result\n", argv[0]);
 			exit(1);
@@ -187,8 +310,66 @@ char *argv[];
 			// Print out message indicating the identity of this reply. 
 		printf("Received result number %d\n", *buf);
 	}*/
-
-    /* Print message indicating completion of task. */
-	time(&timevar);
-	printf("All done at %s", (char *)ctime(&timevar));
+	// ============ CÓDIGO NUEVO - ENVIAR MENSAJES ============
+// Enviar comando HOLA
+/*strcpy(buf, "HOLA usal.es\r\n");
+printf("Enviando: %s", buf);
+if (send(s, buf, strlen(buf), 0) < 0) {
+    perror(argv[0]);
+    fprintf(stderr, "%s: Error al enviar HOLA\n", argv[0]);
+    exit(1);
 }
+
+// Recibir respuesta del servidor
+memset(buf, 0, TAM_BUFFER);
+int bytes_recibidos = recv(s, buf, TAM_BUFFER-1, 0);
+if (bytes_recibidos <= 0) {
+    perror(argv[0]);
+    fprintf(stderr, "%s: Error al recibir respuesta\n", argv[0]);
+    exit(1);
+}
+buf[bytes_recibidos] = '\0';
+printf("Respuesta del servidor: %s", buf);
+
+// Enviar comando FRASE
+strcpy(buf, "FRASE SOS\r\n");
+printf("Enviando: %s", buf);
+if (send(s, buf, strlen(buf), 0) < 0) {
+    perror(argv[0]);
+    fprintf(stderr, "%s: Error al enviar FRASE\n", argv[0]);
+    exit(1);
+}
+
+// Recibir respuesta con código Morse
+memset(buf, 0, TAM_BUFFER);
+bytes_recibidos = recv(s, buf, TAM_BUFFER-1, 0);
+if (bytes_recibidos <= 0) {
+    perror(argv[0]);
+    fprintf(stderr, "%s: Error al recibir morse\n", argv[0]);
+    exit(1);
+}
+buf[bytes_recibidos] = '\0';
+printf("Código Morse recibido: %s", buf);
+
+// Enviar comando FIN
+strcpy(buf, "FIN\r\n");
+printf("Enviando: %s", buf);
+if (send(s, buf, strlen(buf), 0) < 0) {
+    perror(argv[0]);
+    fprintf(stderr, "%s: Error al enviar FIN\n", argv[0]);
+    exit(1);
+}
+
+// Recibir confirmación de cierre
+memset(buf, 0, TAM_BUFFER);
+bytes_recibidos = recv(s, buf, TAM_BUFFER-1, 0);
+if (bytes_recibidos > 0) {
+    buf[bytes_recibidos] = '\0';
+    printf("Respuesta final: %s", buf);
+}
+
+	/* Print message indicating completion of task. */
+	//time(&timevar);
+	//printf("All done at %s", (char *)ctime(&timevar));
+	
+//}

@@ -17,6 +17,7 @@
 #include <string.h>
 #include <time.h>
 #include <unistd.h>
+#include <ctype.h>
 
 
 
@@ -346,8 +347,10 @@ void serverTCP(int s, struct sockaddr_in clientaddr_in)
     				            /* used when setting SO_LINGER */
 	int estado = STATE_WAIT_HOLA;
 	char * response = NULL;
+	char bufenv [TAM_BUFFER];
 
-    				
+
+				
 	/* Look up the host information for the remote host
 	 * that we have connected with.  Its internet address
 	 * was returned by the accept call, in the main
@@ -362,10 +365,12 @@ void serverTCP(int s, struct sockaddr_in clientaddr_in)
 			 * printed out in the logging information.  The
 			 * address will be shown in "internet dot format".
 			 */
-			 /* inet_ntop para interoperatividad con IPv6 */
+			 // inet_ntop para interoperatividad con IPv6 
             if (inet_ntop(AF_INET, &(clientaddr_in.sin_addr), hostname, MAXHOST) == NULL)
             	perror(" inet_ntop \n");
              }
+	
+	
     /* Log a startup message. */
     time (&timevar);
 		/* The port number must be converted first to host byte
@@ -387,6 +392,7 @@ void serverTCP(int s, struct sockaddr_in clientaddr_in)
 					sizeof(linger)) == -1) {
 		errout(hostname);
 	}
+	
 
 		/* Go into a loop, receiving requests from the remote
 		 * client.  After the client has sent the last request,
@@ -400,11 +406,18 @@ void serverTCP(int s, struct sockaddr_in clientaddr_in)
 		 */
 
 	//Enviar mensaje de bienvenida
-	char *bienvenida = "220 Servicio preparado\r\n";
-	if (send (s,bienvenida, strlen (bienvenida),0)<0)
+	memset (bufenv, 0, TAM_BUFFER);
+	strcpy (bufenv, "220 Servicio preparado\r\n");
+	//printf ("[SERVIDOR] Enviando bienvenida: %s", bufenv);
+	
+	if (send(s, bufenv, TAM_BUFFER, 0) != TAM_BUFFER){
+		free (response);
 		errout (hostname);
+	}
 
-	printf ("[ENVIO] %s", bienvenida);
+	free (response);
+	response=NULL;
+
 
 	//RECV = RECIBIR
 	while ((len = recv(s, buf, TAM_BUFFER, 0)) > 0 && estado != STATE_DONE ) {
@@ -423,34 +436,39 @@ void serverTCP(int s, struct sockaddr_in clientaddr_in)
 			 * next recv at the top of the loop will start at
 			 * the begining of the next request.
 			 */
+		//Asegurar recepción completa
 		while (len < TAM_BUFFER) {
 			len1 = recv(s, &buf[len], TAM_BUFFER-len, 0);
 			if (len1 == -1) errout(hostname);
+			if (len1 == 0) break;
 			len += len1;
 		}
 
 		//NO SÉ SI HAY QUE PONER ESTA LINEA --> AÑADE LIDIA
-		buf [len] = '\0';
-		char *response = AnalisisEstados (buf, &estado);
+		buf [TAM_BUFFER-1] = '\0';
+		//printf ("[SERVIDOR] Mensaje recibido: %s", buf);
+		response = AnalisisEstados (buf, &estado);
 		if (response == NULL){
 			printf("[ERROR] AnalisisEstados devolvió NULL\n");
 			errout (hostname);
 		}
 
-		printf("[DEBUG] Enviando respuesta: '%s'\n", response);
+        //printf("[SERVIDOR] Estado: %d, Respuesta: %s", estado, response);
 
 			/* Increment the request count. */
 		reqcnt++;
 			/* This sleep simulates the processing of the
 			 * request that a real server might do.
 			 */
-		sleep(1);
+		sleep(1); 
 			/* Send a response back to the client. */
 
 
 
 		//ENVIAR
-		if (send(s, buf, TAM_BUFFER, 0) != TAM_BUFFER) errout(hostname);
+		memset (bufenv, 0, TAM_BUFFER);
+		strncpy (bufenv, response, TAM_BUFFER-1);
+		if (send(s, bufenv, TAM_BUFFER, 0) != TAM_BUFFER) errout(hostname);
 		printf("\nSent response number %d currentSTATE: %d", reqcnt,estado);
 		printf("\nResponse: %s", response);
 	}
@@ -465,10 +483,10 @@ void serverTCP(int s, struct sockaddr_in clientaddr_in)
 		 * times printed in the log file to reflect more accurately
 		 * the length of time this connection was used.
 		 */
-	close(s);
+	//close(s);
 
 		/* Log a finishing message. */
-	time (&timevar);
+	//time (&timevar);
 		/* The port number must be converted first to host byte
 		 * order before printing.  On most hosts, this is not
 		 * necessary, but the ntohs() call is included here so
@@ -477,6 +495,7 @@ void serverTCP(int s, struct sockaddr_in clientaddr_in)
 		 */
 	printf("Completed %s port %u, %d requests, at %s\n",
 		hostname, ntohs(clientaddr_in.sin_port), reqcnt, (char *) ctime(&timevar));
+
 }
 
 /*
@@ -593,6 +612,7 @@ void convertirAMorse(char *texto, char *resultado) {
  * Retorna: Respuesta a enviar al cliente
  */
 char * AnalisisEstados(char *mensaje, int *estado) {
+	fflush (stdout);
     char *respuesta = (char *)malloc(sizeof(char) * TAM_BUFFER);
     char codigoMorse[400];
     char *frase;
@@ -601,21 +621,31 @@ char * AnalisisEstados(char *mensaje, int *estado) {
         perror("Error al reservar memoria");
         return NULL;
     }
+
+	//Copia mensaje a variable local
+	char *linea = (char *)malloc(strlen(mensaje) + 1);  
+    if (linea == NULL) {  
+        perror("Error al reservar memoria");
+        free(respuesta);
+        return NULL;
+    }
+    strcpy(linea, mensaje);
     
     // Eliminar \r\n del final
-    int len = strlen(mensaje);
-    if (len >= 2 && mensaje[len-2] == '\r' && mensaje[len-1] == '\n') {
-        mensaje[len-2] = '\0';
+    int len = strlen(linea);
+    if (len >= 2 && linea[len-2] == '\r' && linea[len-1] == '\n') {
+        linea[len-2] = '\0';
     }
     
-    printf("[DEBUG] Estado: %d, Mensaje: '%s'\n", *estado, mensaje);
+    //printf("[DEBUG] Estado: %d, Mensaje: '%s'\n", *estado, linea);
     
     switch (*estado) {
         case STATE_WAIT_HOLA:
-            if (strncmp(mensaje, "HOLA ", 5) == 0) {
-                char *dominio = mensaje + 5;
+			//printf("[ESTADO] STATE_WAIT_HOLA\n");
+            if (strncmp(linea, "HOLA ", 5) == 0) {
+                char *dominio = linea + 5;
                 if (strlen(dominio) > 0) {
-                    printf("[INFO] HOLA recibido de: %s\n", dominio);
+                    //printf("[INFO] HOLA recibido de: %s\n", dominio);
                     strcpy(respuesta, "240 OK\r\n");
                     *estado = STATE_READY;
                 } else {
@@ -627,20 +657,22 @@ char * AnalisisEstados(char *mensaje, int *estado) {
             break;
         
         case STATE_READY:
-            if (strncmp(mensaje, "FRASE ", 6) == 0) {
-                frase = mensaje + 6;
+		 	//printf("[ESTADO] STATE_READY\n");
+            if (strncmp(linea, "FRASE ", 6) == 0) {
+                frase = linea + 6;
                 if (strlen(frase) > 0) {
-                    printf("[INFO] Convirtiendo: '%s'\n", frase);
+                   // printf("[INFO] Convirtiendo: '%s'\n", frase);
+					memset(codigoMorse, 0, sizeof(codigoMorse)); //Limpiar buffer
                     convertirAMorse(frase, codigoMorse);
                     strcpy(respuesta, "250 MORSE ");
                     strcat(respuesta, codigoMorse);
                     strcat(respuesta, "\r\n");
-                    printf("[INFO] Morse: %s\n", codigoMorse);
+                    //printf("[INFO] Morse: %s\n", codigoMorse);
                 } else {
                     strcpy(respuesta, "500 Error de sintaxis\r\n");
                 }
-            } else if (strcmp(mensaje, "FIN") == 0) {
-                printf("[INFO] FIN recibido\n");
+            } else if (strcmp(linea, "FIN") == 0) {
+                //printf("[INFO] FIN recibido\n");
                 strcpy(respuesta, "221 Cerrando el servicio\r\n");
                 *estado = STATE_DONE;
             } else {
@@ -649,6 +681,7 @@ char * AnalisisEstados(char *mensaje, int *estado) {
             break;
         
         case STATE_DONE:
+			//printf("[ESTADO] STATE_DONE\n");
             strcpy(respuesta, "221 Cerrando el servicio\r\n");
             break;
         
