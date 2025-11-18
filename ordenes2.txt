@@ -1,0 +1,8 @@
+HELO usal.es
+FRASE Se acercan tormentas
+HOLA usal.es
+PHRASE Ten cuidado
+FRASE Lunes soleado
+FRASE Hoy voy de fiesta
+FIN
+FIN

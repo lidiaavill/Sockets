@@ -34,7 +34,8 @@ extern int errno;
 #define ADDRNOTFOUND	0xffffffff	/* value returned for unknown host */
 #define RETRIES	5		/* number of times to retry before givin up */
 #define BUFFERSIZE	1024	/* maximum size of packets to be received */
-#define PUERTO 17278
+#define TAM_BUFFER 516		/* tamaño máximo según protocolo Morse */
+#define PUERTO 53278 
 #define TIMEOUT 6
 #define MAXHOST 512
 /*
@@ -76,6 +77,10 @@ char *argv[];
     struct sigaction vec;
    	char hostname[MAXHOST];
    	struct addrinfo hints, *res;
+
+	char buffer[TAM_BUFFER];
+	char bufResp[TAM_BUFFER];
+
 
 	if (argc != 3) {
 		fprintf(stderr, "Usage:  %s <nameserver> <target>\n", argv[0]);
@@ -133,7 +138,7 @@ char *argv[];
 		 */
       memset (&hints, 0, sizeof (hints));
       hints.ai_family = AF_INET;
- 	 /* esta funci�n es la recomendada para la compatibilidad con IPv6 gethostbyname queda obsoleta*/
+ 	 /* esta funci�n es la recomendada para la compatibilidad con IPv6 gethostbyname queda obsoleta*/
     errcode = getaddrinfo (argv[1], NULL, &hints, &res); 
     if (errcode != 0){
 			/* Name was not found.  Return a
@@ -158,10 +163,34 @@ char *argv[];
             fprintf(stderr,"%s: unable to register the SIGALRM signal\n", argv[0]);
             exit(1);
         }
+
+	/*
+	if (sendto (s,argv[2], stlen (argv[2]), 0, (struct sockaddr*) & servaddr_in, sizeof (struct sockaddr_in))==-1){
+		perror (argv [0]);
+		fprintf (stderr, "%s: no se ha podido enviar el mensaje", argv[0]);
+		exit (1);
+	}
+
+	if (recvfrom (s,buffer, TAM_BUFFER,0, (struct sockaddr *), &servaddr_in, &addrlen)==-1){
+		perror (argv [0]);
+		fprintf (stderr, "%s no se ha podido mandar el mensaje\n", argv[0]);
+		exit (1);
+	}
+	*/
+
 	
+	//buffer [strlen (buffer)] = '\0';
+	//printf ("[DEBUG] Puerto del servidor: %s\n", buffer);
+
+	//servaddr_in.sin_port = htons (atoi (buffer));
+	//pritnf ("[DEBUG] Puerto del servidor: %d\n", ntohs (servaddr_in.sin_port));
+
+	memset (buffer,0,TAM_BUFFER);
+	strcpy (buffer, "\r\n");
     n_retry=RETRIES;
+	int recibido_220=0;
     
-	while (n_retry > 0) {
+	while (n_retry > 0 && !recibido_220)  {
 		/* Send the request to the nameserver. */
         if (sendto (s, argv[2], strlen(argv[2]), 0, (struct sockaddr *)&servaddr_in,
 				sizeof(struct sockaddr_in)) == -1) {
@@ -174,6 +203,7 @@ char *argv[];
 		 * delivery.
 		 */
 	    alarm(TIMEOUT);
+		memset (bufResp,0,TAM_BUFFER);
 		/* Wait for the reply to come in. */
         if (recvfrom (s, &reqaddr, sizeof(struct in_addr), 0,
 						(struct sockaddr *)&servaddr_in, &addrlen) == -1) {
@@ -192,6 +222,7 @@ char *argv[];
               } 
         else {
             alarm(0);
+			recibido_220=1;
             /* Print out response. */
             if (reqaddr.s_addr == ADDRNOTFOUND) 
                printf("Host %s unknown by nameserver %s\n", argv[2], argv[1]);
@@ -205,8 +236,85 @@ char *argv[];
             }
   }
 
+  
+
     if (n_retry == 0) {
        printf("Unable to get response from");
        printf(" %s after %d attempts.\n", argv[1], RETRIES);
        }
+
+	while (1) {
+        // Leer comando del usuario
+        printf("C: ");
+        fflush(stdout);
+
+        memset(buffer, 0, TAM_BUFFER);
+        if (fgets(buffer, TAM_BUFFER, stdin) == NULL) {
+            break;  // EOF o error
+        }
+
+        // Quitar el '\n' que añade fgets y poner '\r\n'
+        buffer[strlen(buffer)-1] = '\0';
+        strcat(buffer, "\r\n");
+
+        // ==========================================
+        // ENVIAR COMANDO CON REINTENTOS
+        // ==========================================
+        n_retry = RETRIES;
+        int respuesta_recibida = 0;
+
+        while (n_retry > 0 && !respuesta_recibida) {
+            // Enviar comando
+            if (sendto(s, buffer, strlen(buffer), 0,
+                      (struct sockaddr *)&servaddr_in,
+                      sizeof(struct sockaddr_in)) == -1) {
+                perror(argv[0]);
+                fprintf(stderr, "%s: unable to send message\n", argv[0]);
+                exit(1);
+            }
+
+            // Configurar timeout
+            alarm(TIMEOUT);
+
+            // Esperar respuesta
+            memset(bufResp, 0, TAM_BUFFER);
+            if (recvfrom(s, bufResp, TAM_BUFFER, 0,
+                        (struct sockaddr *)&servaddr_in, &addrlen) == -1) {
+                if (errno == EINTR) {
+                    // Timeout: reintentar
+                    n_retry--;
+                    printf("[Cliente] Timeout, reintentando... (%d intentos restantes)\n", n_retry);
+                } else {
+                    // Error real
+                    perror(argv[0]);
+                    fprintf(stderr, "%s: error receiving response\n", argv[0]);
+                    exit(1);
+                }
+            } else {
+                // Respuesta recibida correctamente
+                alarm(0);
+                respuesta_recibida = 1;
+                printf("S: %s", bufResp);
+
+                // Si es mensaje de cierre (221), terminar
+                if (strncmp(bufResp, "221", 3) == 0) {
+                    printf("\n[Cliente] Cerrando conexión...\n");
+                    close(s);
+                    exit(0);
+                }
+            }
+        }
+
+        // Verificar si se agotaron los reintentos
+        if (n_retry == 0 && !respuesta_recibida) {
+            fprintf(stderr, "[ERROR] No se pudo contactar con el servidor tras %d intentos\n", RETRIES);
+            close(s);
+            exit(1);
+        }
+    }
+
+    // Cerrar socket
+    close(s);
+    return 0;
 }
+

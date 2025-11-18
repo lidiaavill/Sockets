@@ -18,6 +18,10 @@
 #include <time.h>
 #include <unistd.h>
 #include <ctype.h>
+#include <semaphore.h> 
+#include <fcntl.h>  // Para O_CREAT
+
+
 
 
 
@@ -26,6 +30,7 @@
 #define BUFFERSIZE	1024	/* maximum size of packets to be received */
 #define TAM_BUFFER 516
 #define MAXHOST 128
+#define LOG_FILE "peticiones.log"
 
 #define STATE_WAIT_HOLA    102  // Esperando comando HOLA
 #define STATE_READY        103  // HOLA recibido, esperando FRASE o FIN
@@ -65,9 +70,12 @@ extern int errno;
 void convertirAMorse(char *texto, char *resultado);
 char * AnalisisEstados(char *mensaje, int *estado);
 
-void serverTCP(int s, struct sockaddr_in peeraddr_in);
+void serverTCP(int s, struct sockaddr_in peeraddr_in, sem_t *sem); //Añadimos parámetro sem_t *sem
 void serverUDP(int s, char * buffer, struct sockaddr_in clientaddr_in);
 void errout(char *);		/* declare error out routine */
+void escribirLog(char *mensaje, sem_t *sem);
+
+
 
 int FIN = 0;             /* Para el cierre ordenado */
 void finalizar(){ FIN = 1; }
@@ -94,6 +102,8 @@ char *argv[];
     char buffer[BUFFERSIZE];	/* buffer for packets to be read into */
     
     struct sigaction vec;
+
+	sem_t *log_semaphore;  // Semáforo para acceso al log
 
 
 	/* CREATE THE LISTEN SOCKET - TCP*/
@@ -169,6 +179,19 @@ char *argv[];
 		exit(1);
 	    }
 
+		/* Crear semáforo compartido entre procesos */
+	log_semaphore = sem_open("/morse_log_sem", O_CREAT | O_EXCL, 0644, 1);
+	if (log_semaphore == SEM_FAILED) {
+		// Si ya existe (de una ejecución anterior), intentar abrirlo
+		    fprintf(stderr, "[DEBUG] Semáforo ya existe, intentando abrir...\n");
+
+		log_semaphore = sem_open("/morse_log_sem", 0);
+		if (log_semaphore == SEM_FAILED) {
+			perror("Error al crear semáforo");
+			exit(1);
+		}
+	}	
+
 		/* Now, all the initialization of the server is
 		 * complete, and any user errors will have already
 		 * been detected.  Now we can fork the daemon and
@@ -199,8 +222,18 @@ char *argv[];
 			 * waiting for connections and forking a child
 			 * server to handle each one.
 			 */
+
+	//DEBUG
+		char cwd[1024];
+    if (getcwd(cwd, sizeof(cwd)) != NULL) {
+        fprintf(stderr, "[DEBUG] Directorio de trabajo: %s\n", cwd);
+    }
+
+	//DEBUG
+    
+    fclose(stdin);
 		fclose(stdin);
-		fclose(stderr);
+		//fclose(stderr);
 
 			/* Set SIGCLD to SIG_IGN, in order to prevent
 			 * the accumulation of zombies as each child
@@ -270,7 +303,7 @@ char *argv[];
         				exit(1);
         			case 0:		/* Child process comes here. */
                     			close(ls_TCP); /* Close the listen socket inherited from the daemon. */
-        				serverTCP(s_TCP, clientaddr_in);
+        				serverTCP(s_TCP, clientaddr_in, log_semaphore);
         				exit(0);
         			default:	/* Daemon process comes here. */
         					/* The daemon needs to remember
@@ -314,6 +347,10 @@ char *argv[];
         /* Cerramos los sockets UDP y TCP */
         close(ls_TCP);
         close(s_UDP);
+
+		// Cerrar y eliminar el semáforo
+		sem_close(log_semaphore); //Cierra el semáforo en este proceso
+		sem_unlink("/morse_log_sem"); //Elimina el semáforo del sistema (para que no quede "huérfano").
     
         printf("\nFin de programa servidor!\n");
         
@@ -333,7 +370,7 @@ char *argv[];
  *	logging information to stdout.
  *
  */
-void serverTCP(int s, struct sockaddr_in clientaddr_in)
+void serverTCP(int s, struct sockaddr_in clientaddr_in, sem_t *sem)
 {
 	int reqcnt = 0;		/* keeps count of number of requests */
 	char buf[TAM_BUFFER];		/* This example uses TAM_BUFFER byte messages. */
@@ -348,6 +385,7 @@ void serverTCP(int s, struct sockaddr_in clientaddr_in)
 	int estado = STATE_WAIT_HOLA;
 	char * response = NULL;
 	char bufenv [TAM_BUFFER];
+	char log_msg[512];  // Buffer para mensajes de log
 
 
 				
@@ -405,6 +443,14 @@ void serverTCP(int s, struct sockaddr_in clientaddr_in)
 		 * follow, and the loop will be exited.
 		 */
 
+	// LOG: Comunicación realizada
+		snprintf(log_msg, sizeof(log_msg), 
+         "Comunicación realizada - Host: %s, IP: %s, Protocolo: TCP, Puerto: %u",
+         hostname, 
+         inet_ntoa(clientaddr_in.sin_addr),
+         ntohs(clientaddr_in.sin_port));
+		escribirLog(log_msg, sem);
+
 	//Enviar mensaje de bienvenida
 	memset (bufenv, 0, TAM_BUFFER);
 	strcpy (bufenv, "220 Servicio preparado\r\n");
@@ -453,6 +499,17 @@ void serverTCP(int s, struct sockaddr_in clientaddr_in)
 			errout (hostname);
 		}
 
+		// LOG: Frase recibida (solo si es comando FRASE)
+		if (strncmp(buf, "FRASE ", 6) == 0) {
+			snprintf(log_msg, sizeof(log_msg),
+					"Frase recibida - Host: %s, IP: %s, Protocolo: TCP, Puerto: %u, Frase: %s",
+					hostname,
+					inet_ntoa(clientaddr_in.sin_addr),
+					ntohs(clientaddr_in.sin_port),
+					buf);
+			escribirLog(log_msg, sem);
+		}
+
         //printf("[SERVIDOR] Estado: %d, Respuesta: %s", estado, response);
 
 			/* Increment the request count. */
@@ -471,7 +528,16 @@ void serverTCP(int s, struct sockaddr_in clientaddr_in)
 		if (send(s, bufenv, TAM_BUFFER, 0) != TAM_BUFFER) errout(hostname);
 		printf("\nSent response number %d currentSTATE: %d", reqcnt,estado);
 		printf("\nResponse: %s", response);
-	}
+
+		// LOG: Respuesta enviada
+		snprintf(log_msg, sizeof(log_msg),
+				"Respuesta enviada - Host: %s, IP: %s, Protocolo: TCP, Puerto: %u, Respuesta: %s",
+				hostname,
+				inet_ntoa(clientaddr_in.sin_addr),
+				ntohs(clientaddr_in.sin_port),
+				response);
+		escribirLog(log_msg, sem);
+			}
 
 		/* The loop has terminated, because there are no
 		 * more requests to be serviced.  As mentioned above,
@@ -495,6 +561,14 @@ void serverTCP(int s, struct sockaddr_in clientaddr_in)
 		 */
 	printf("Completed %s port %u, %d requests, at %s\n",
 		hostname, ntohs(clientaddr_in.sin_port), reqcnt, (char *) ctime(&timevar));
+
+	// LOG: Comunicación finalizada
+	snprintf(log_msg, sizeof(log_msg),
+			"Comunicación finalizada - Host: %s, IP: %s, Protocolo: TCP, Puerto: %u",
+			hostname,
+			inet_ntoa(clientaddr_in.sin_addr),
+			ntohs(clientaddr_in.sin_port));
+	escribirLog(log_msg, sem);
 
 }
 
@@ -599,6 +673,60 @@ void convertirAMorse(char *texto, char *resultado) {
             printf("Advertencia: Carácter '%c' no reconocido\n", c);
         }
     }
+}
+
+/*
+ * Función: escribirLog
+ * --------------------
+ * Escribe un mensaje en el archivo de log de forma segura (con semáforo)
+ * 
+ * mensaje: Texto a escribir en el log
+ * sem: Semáforo para controlar el acceso concurrente
+ */
+void escribirLog(char *mensaje, sem_t *sem) {
+    FILE *log_file;
+    time_t now;
+    char timestamp[64];
+        fprintf(stderr, "[DEBUG] escribirLog llamada con: %s\n", mensaje);
+
+    // Obtener fecha y hora actual
+    time(&now);
+    struct tm *t = localtime(&now);
+    strftime(timestamp, sizeof(timestamp), "%Y-%m-%d %H:%M:%S", t);
+
+	    fprintf(stderr, "[DEBUG] Intentando sem_wait...\n");
+
+    
+    // BLOQUEAR el semáforo (esperar si otro proceso está escribiendo)
+    sem_wait(sem);
+    
+    // Abrir archivo en modo append (añadir al final)
+    log_file = fopen(LOG_FILE, "a");
+    if (log_file == NULL) {
+        perror("Error al abrir peticiones.log");
+        sem_post(sem);  // DESBLOQUEAR aunque haya error
+        return;
+    }
+	    fprintf(stderr, "[DEBUG] Archivo abierto correctamente\n");
+
+	    fprintf(stderr, "[DEBUG] Semáforo adquirido, abriendo archivo...\n");
+
+    
+    // Escribir en el log: [FECHA HORA] mensaje
+    fprintf(log_file, "[%s] %s\n", timestamp, mensaje);
+	    fprintf(stderr, "[DEBUG] Mensaje escrito en log\n");
+
+	
+	
+
+
+    fflush(log_file);  // Asegurar que se escribe inmediatamente
+    fclose(log_file);
+	    fprintf(stderr, "[DEBUG] Archivo cerrado\n");
+
+    
+    // DESBLOQUEAR el semáforo (permitir que otro proceso escriba)
+    sem_post(sem);
 }
  
 /*

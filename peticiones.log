@@ -1,0 +1,58 @@
+[2025-11-18 11:54:33] Comunicación realizada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 46630
+[2025-11-18 11:54:33] Comunicación realizada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 46632
+[2025-11-18 11:54:33] Comunicación realizada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 46644
+[2025-11-18 11:54:34] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 46630, Respuesta: 240 OK
+
+[2025-11-18 11:54:34] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 46632, Respuesta: 240 OK
+
+[2025-11-18 11:54:34] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 46644, Respuesta: 500 Error de sintaxis
+
+[2025-11-18 11:54:34] Frase recibida - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 46644, Frase: FRASE Se acercan tormentas
+
+[2025-11-18 11:54:35] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 46630, Respuesta: 500 Error de sintaxis
+
+[2025-11-18 11:54:35] Frase recibida - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 46630, Frase: FRASE Lunes soleado
+
+[2025-11-18 11:54:35] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 46632, Respuesta: 500 Error de sintaxis
+
+[2025-11-18 11:54:35] Frase recibida - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 46632, Frase: FRASE SOS
+
+[2025-11-18 11:54:35] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 46644, Respuesta: 500 Error de sintaxis
+
+[2025-11-18 11:54:36] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 46630, Respuesta: 250 MORSE .-../..-/-././...//.../---/.-.././.-/-../---
+
+[2025-11-18 11:54:36] Frase recibida - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 46630, Frase: FRASE Hoy voy de fiesta
+
+[2025-11-18 11:54:36] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 46632, Respuesta: 250 MORSE .../---/...
+
+[2025-11-18 11:54:36] Frase recibida - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 46632, Frase: FRASE He sacado un 10
+
+[2025-11-18 11:54:36] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 46644, Respuesta: 240 OK
+
+[2025-11-18 11:54:40] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 46630, Respuesta: 250 MORSE ..../---/-.--//...-/---/-.--//-.././/..-./.././.../-/.-
+
+[2025-11-18 11:54:40] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 46632, Respuesta: 250 MORSE ...././/.../.-/-.-./.-/-../---//..-/-.//.----/-----
+
+[2025-11-18 11:54:40] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 46644, Respuesta: 500 Error de sintaxis
+
+[2025-11-18 11:54:40] Frase recibida - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 46644, Frase: FRASE Lunes soleado
+
+[2025-11-18 11:54:41] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 46630, Respuesta: 500 Error de sintaxis
+
+[2025-11-18 11:54:41] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 46632, Respuesta: 500 Error de sintaxis
+
+[2025-11-18 11:54:41] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 46644, Respuesta: 250 MORSE .-../..-/-././...//.../---/.-.././.-/-../---
+
+[2025-11-18 11:54:41] Frase recibida - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 46644, Frase: FRASE Hoy voy de fiesta
+
+[2025-11-18 11:54:42] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 46630, Respuesta: 221 Cerrando el servicio
+
+[2025-11-18 11:54:42] Comunicación finalizada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 46630
+[2025-11-18 11:54:42] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 46644, Respuesta: 250 MORSE ..../---/-.--//...-/---/-.--//-.././/..-./.././.../-/.-
+
+[2025-11-18 11:54:42] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 46632, Respuesta: 221 Cerrando el servicio
+
+[2025-11-18 11:54:42] Comunicación finalizada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 46632
+[2025-11-18 11:54:43] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 46644, Respuesta: 221 Cerrando el servicio
+
+[2025-11-18 11:54:43] Comunicación finalizada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 46644

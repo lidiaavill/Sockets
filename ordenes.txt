@@ -1,0 +1,6 @@
+HOLA usal.es
+PHRASE pepe
+FRASE SOS
+FRASE He sacado un 10
+Voy al cine
+FIN

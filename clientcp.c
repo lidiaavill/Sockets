@@ -50,9 +50,15 @@ char *argv[];
     /* This example uses TAM_BUFFER byte messages. */
 	char buf[TAM_BUFFER];
 
-	if (argc != 2) {
-		fprintf(stderr, "Usage:  %s <remote host>\n", argv[0]);
-		exit(1);
+	FILE *archivo_ordenes = NULL;   // Para leer comandos
+	char *linea_leida = NULL;        // Línea leída del archivo
+	size_t len = 0;                  // Tamaño del buffer para getline
+	ssize_t nread;                   // Bytes leídos por getline
+
+	if (argc != 4) {
+    fprintf(stderr, "Uso: %s <servidor> <protocolo> <archivo_ordenes>\n", argv[0]);
+    fprintf(stderr, "Ejemplo: %s nogal TCP ordenes.txt\n", argv[0]);
+    exit(1);
 	}
 
 	/* Create the socket. */
@@ -114,6 +120,16 @@ char *argv[];
 		exit(1);
 	 }
 
+	 // Abrir archivo de órdenes
+	archivo_ordenes = fopen(argv[3], "r");
+	if (archivo_ordenes == NULL) {
+		perror(argv[0]);
+		fprintf(stderr, "%s: No se pudo abrir el archivo %s\n", argv[0], argv[3]);
+		close(s);
+		exit(1);
+	}
+
+
 	/* Print out a startup message for the user. */
 	time(&timevar);
 	/* The port number must be converted first to host byte
@@ -153,9 +169,79 @@ char *argv[];
 
 	bufr[TAM_BUFFER-1] = '\0';
 	printf("S: %s\n", bufr);
+	
+
+	// *** PASO 2: BUCLE DE LECTURA DESDE ARCHIVO ***
+	while ((nread = getline(&linea_leida, &len, archivo_ordenes)) != -1) 
+	{
+		// Limpiar buffers
+		memset(buf, 0, TAM_BUFFER);
+		memset(bufr, 0, TAM_BUFFER);
+		
+		// Eliminar el salto de línea que añade getline
+		if (linea_leida[nread-1] == '\n') {
+			linea_leida[nread-1] = '\0';
+			nread--;
+		}
+		
+		// Verificar que la línea no esté vacía
+		if (nread == 0) {
+			continue;  // Saltar líneas vacías
+		}
+		
+		// Copiar la línea al buffer
+		strncpy(buf, linea_leida, TAM_BUFFER-3);
+		buf[TAM_BUFFER-3] = '\0';  // Asegurar terminación
+		
+		// Añadir \r\n al final (protocolo)
+		strcat(buf, "\r\n");
+		
+		// Escribir en archivo y consola lo que enviamos
+		printf("C: %s", buf);
+
+		// Enviar mensaje al servidor
+		if (send(s, buf, TAM_BUFFER, 0) != TAM_BUFFER) {
+			perror(argv[0]);
+			fprintf(stderr, "%s: Error al enviar mensaje\n", argv[0]);
+			break;
+		}
+		
+		// Recibir respuesta del servidor
+		i = recv(s, bufr, TAM_BUFFER, 0);
+		if (i == -1) {
+			perror(argv[0]);
+			fprintf(stderr, "%s: error reading result\n", argv[0]);
+			break;
+		}
+		
+		// Asegurar que se reciben todos los TAM_BUFFER bytes
+		while (i < TAM_BUFFER) {
+			j = recv(s, &bufr[i], TAM_BUFFER-i, 0);
+			if (j == -1) {
+				perror(argv[0]);
+				fprintf(stderr, "%s: error reading result\n", argv[0]);
+				exit(1);
+			}
+			if (j == 0) break;  // Conexión cerrada
+			i += j;
+		}
+		
+		// Asegurar terminación null
+		bufr[TAM_BUFFER-1] = '\0';
+		
+		// Escribir respuesta en archivo y consola
+		printf("S: %s\n", bufr);
+
+		
+		// Comprobar si es el mensaje de cierre
+		if (strstr(bufr, "221") != NULL) {
+			printf("\nServidor cerró la conexión. Saliendo...\n");
+			break;
+		}
+	}
 
 	// *** PASO 2: BUCLE INTERACTIVO (como Luis) ***
-	while(1)
+	/*while(1)
 	{
 		// Limpiar buffers
 		memset(buf, 0, TAM_BUFFER);
@@ -207,6 +293,7 @@ char *argv[];
 				i += j;
 			}
 	
+	
 				
 	
     
@@ -215,13 +302,14 @@ char *argv[];
         printf("\nServidor cerró la conexión. Saliendo...\n");
         break;
     }
+	*/
 
 	// Asegurar terminación null
     bufr[TAM_BUFFER-1] = '\0';
 
 	 // Mostrar respuesta del servidor
     printf("S: %s\n", bufr);
-}
+
 	/* Now, shutdown the connection for further sends.
 	* This will cause the server to receive an end-of-file
 	* condition after it has received all the requests that
@@ -241,7 +329,17 @@ char *argv[];
 		fprintf(stderr, "%s: error reading message\n", argv[0]);
 		exit(1);
 	}
-		
+	
+		// Liberar memoria de getline
+	if (linea_leida) {
+		free(linea_leida);
+	}
+
+	// Cerrar archivo
+	if (archivo_ordenes) {
+		fclose(archivo_ordenes);
+	}
+	
     /* Print message indicating completion of task. */
 	time(&timevar);
 	printf("All done at %s", (char *)ctime(&timevar));

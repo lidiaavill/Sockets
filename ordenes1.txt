@@ -1,0 +1,6 @@
+HOLA marca.com
+PHRASE SOS
+FRASE Lunes soleado
+FRASE Hoy voy de fiesta
+Esto no funciona
+FIN
