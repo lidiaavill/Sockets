@@ -143,7 +143,7 @@ char *argv[];
 	myaddr_in.sin_port = htons(PUERTO); //Puerto constante que es 17278 , htons (Host to Network Short) conversor big endian
 
 
-	//ASOCIA DIRRECCIÓN Y PUERTO//
+	//ASOCIA EL PUERTO AL SOCKET//
 	/* Bind the listen address to the socket. */
 	if (bind(ls_TCP, (const struct sockaddr *) &myaddr_in, sizeof(struct sockaddr_in)) == -1) {
 				perror(argv[0]);
@@ -270,7 +270,7 @@ char *argv[];
             }
            else { 
 
-				//SI HAY CLIENTE FD_ISSET (ls_TCP) SE ACTIVA
+				//SI HAY CLIENTE FD_ISSET (ls_TCP) SE ACTIVA, es decir si llega conexión TCP:
                 if (FD_ISSET(ls_TCP, &readmask)) { 
 					//Si me llega petición la acepto en el socket de abajo s_TCP
                     /* Note that addrlen is passed as a pointer
@@ -284,12 +284,12 @@ char *argv[];
     				 * for that connection.
     				 */
 
-				//ACEPTA PETICIÓN
-    			s_TCP = accept(ls_TCP, (struct sockaddr *) &clientaddr_in, &addrlen);
+				//Acepta al cliente
+    			s_TCP = accept(ls_TCP, (struct sockaddr *) &clientaddr_in, &addrlen); 
 				//**`accept()`** es **bloqueante**: el servidor se queda "esperando" aquí hasta que llegue un cliente.
 
     			if (s_TCP == -1) exit(1);
-    			switch (fork()) {
+    			switch (fork()) { //Crea proceso hijo para atenderlo
         			case -1:	/* Can't fork, just exit. */
         				exit(1);
         			case 0:		/* Child process comes here. */
