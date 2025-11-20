@@ -163,85 +163,28 @@ char *argv[];
             fprintf(stderr,"%s: unable to register the SIGALRM signal\n", argv[0]);
             exit(1);
         }
-
-	/*
-	if (sendto (s,argv[2], stlen (argv[2]), 0, (struct sockaddr*) & servaddr_in, sizeof (struct sockaddr_in))==-1){
-		perror (argv [0]);
-		fprintf (stderr, "%s: no se ha podido enviar el mensaje", argv[0]);
-		exit (1);
+    /*
+	//send the name of the client
+	if (sendto(s, argv[1], strlen(argv[1]), 0, (struct sockaddr *) &servaddr_in, sizeof(struct sockaddr_in)) == -1) { //this line sends the name of the client to the server
+		printf("Error al enviar el nombre del cliente\n");
+		exit(1);
 	}
 
-	if (recvfrom (s,buffer, TAM_BUFFER,0, (struct sockaddr *), &servaddr_in, &addrlen)==-1){
-		perror (argv [0]);
-		fprintf (stderr, "%s no se ha podido mandar el mensaje\n", argv[0]);
-		exit (1);
+	//wait for server to send the port 
+	if (recvfrom(s, buffer, TAM_BUFFER, 0, (struct sockaddr *) &servaddr_in, &addrlen) == -1) {
+		printf("Error al recibir el puerto del servidor\n");
+		exit(1);
 	}
-	*/
 
 	
-	//buffer [strlen (buffer)] = '\0';
-	//printf ("[DEBUG] Puerto del servidor: %s\n", buffer);
+	buffer [strlen (buffer)] = '\0';
+	printf ("[DEBUG] Puerto del servidor: %s\n", buffer);
 
-	//servaddr_in.sin_port = htons (atoi (buffer));
-	//pritnf ("[DEBUG] Puerto del servidor: %d\n", ntohs (servaddr_in.sin_port));
+	servaddr_in.sin_port = htons (atoi (buffer));
+	printf ("[DEBUG] Puerto del servidor: %d\n", ntohs (servaddr_in.sin_port));
 
-	memset (buffer,0,TAM_BUFFER);
-	strcpy (buffer, "\r\n");
-    n_retry=RETRIES;
-	int recibido_220=0;
-    
-	while (n_retry > 0 && !recibido_220)  {
-		/* Send the request to the nameserver. */
-        if (sendto (s, argv[2], strlen(argv[2]), 0, (struct sockaddr *)&servaddr_in,
-				sizeof(struct sockaddr_in)) == -1) {
-        		perror(argv[0]);
-        		fprintf(stderr, "%s: unable to send request\n", argv[0]);
-        		exit(1);
-        	}
-		/* Set up a timeout so I don't hang in case the packet
-		 * gets lost.  After all, UDP does not guarantee
-		 * delivery.
-		 */
-	    alarm(TIMEOUT);
-		memset (bufResp,0,TAM_BUFFER);
-		/* Wait for the reply to come in. */
-        if (recvfrom (s, &reqaddr, sizeof(struct in_addr), 0,
-						(struct sockaddr *)&servaddr_in, &addrlen) == -1) {
-    		if (errno == EINTR) {
-    				/* Alarm went off and aborted the receive.
-    				 * Need to retry the request if we have
-    				 * not already exceeded the retry limit.
-    				 */
- 		         printf("attempt %d (retries %d).\n", n_retry, RETRIES);
-  	 		     n_retry--; 
-                    } 
-            else  {
-				printf("Unable to get response from");
-				exit(1); 
-                }
-              } 
-        else {
-            alarm(0);
-			recibido_220=1;
-            /* Print out response. */
-            if (reqaddr.s_addr == ADDRNOTFOUND) 
-               printf("Host %s unknown by nameserver %s\n", argv[2], argv[1]);
-            else {
-                /* inet_ntop para interoperatividad con IPv6 */
-                if (inet_ntop(AF_INET, &reqaddr, hostname, MAXHOST) == NULL)
-                   perror(" inet_ntop \n");
-                printf("Address for %s is %s\n", argv[2], hostname);
-                }	
-            break;	
-            }
-  }
-
-  
-
-    if (n_retry == 0) {
-       printf("Unable to get response from");
-       printf(" %s after %d attempts.\n", argv[1], RETRIES);
-       }
+    memset (buffer,0,TAM_BUFFER);
+        */
 
 	while (1) {
         // Leer comando del usuario

@@ -71,7 +71,7 @@ void convertirAMorse(char *texto, char *resultado);
 char * AnalisisEstados(char *mensaje, int *estado);
 
 void serverTCP(int s, struct sockaddr_in peeraddr_in, sem_t *sem); //Añadimos parámetro sem_t *sem
-void serverUDP(int s, char * buffer, struct sockaddr_in clientaddr_in);
+void serverUDP(int s, char * buffer, struct sockaddr_in clientaddr_in, sem_t*sem);
 void errout(char *);		/* declare error out routine */
 void escribirLog(char *mensaje, sem_t *sem);
 
@@ -183,9 +183,8 @@ char *argv[];
 	log_semaphore = sem_open("/morse_log_sem", O_CREAT | O_EXCL, 0644, 1);
 	if (log_semaphore == SEM_FAILED) {
 		// Si ya existe (de una ejecución anterior), intentar abrirlo
-		    fprintf(stderr, "[DEBUG] Semáforo ya existe, intentando abrir...\n");
 
-		log_semaphore = sem_open("/morse_log_sem", 0);
+				log_semaphore = sem_open("/morse_log_sem", 0);
 		if (log_semaphore == SEM_FAILED) {
 			perror("Error al crear semáforo");
 			exit(1);
@@ -223,17 +222,9 @@ char *argv[];
 			 * server to handle each one.
 			 */
 
-	//DEBUG
-		char cwd[1024];
-    if (getcwd(cwd, sizeof(cwd)) != NULL) {
-        fprintf(stderr, "[DEBUG] Directorio de trabajo: %s\n", cwd);
-    }
-
-	//DEBUG
-    
-    fclose(stdin);
-		fclose(stdin);
-		//fclose(stderr);
+	    
+	fclose(stdin);
+	//fclose(stderr);
 
 			/* Set SIGCLD to SIG_IGN, in order to prevent
 			 * the accumulation of zombies as each child
@@ -340,7 +331,7 @@ char *argv[];
                 * null terminated.
                 */
                 buffer[cc]='\0';
-                serverUDP (s_UDP, buffer, clientaddr_in);
+                serverUDP (s_UDP, buffer, clientaddr_in, log_semaphore);
                 }
           }
 		}   /* Fin del bucle infinito de atenci�n a clientes */
@@ -592,7 +583,7 @@ void errout(char *hostname)
  *	logging information to stdout.
  *
  */
-void serverUDP(int s, char * buffer, struct sockaddr_in clientaddr_in)
+void serverUDP(int s, char * buffer, struct sockaddr_in clientaddr_in, sem_t *sem)
 {
     struct in_addr reqaddr;	/* for requested host's address */
     struct hostent *hp;		/* pointer to host info for requested host */
@@ -600,33 +591,93 @@ void serverUDP(int s, char * buffer, struct sockaddr_in clientaddr_in)
 
     struct addrinfo hints, *res;
 
+	char respuesta [TAM_BUFFER];
+	char hostname [MAXHOST];
+	char log_msg [512];
+	static int estado_udp = STATE_WAIT_HOLA;
+	int status;
+
 	int addrlen;
     
    	addrlen = sizeof(struct sockaddr_in);
 
+	// Obtener hostname del cliente
+    status = getnameinfo((struct sockaddr *)&clientaddr_in, sizeof(clientaddr_in),
+                         hostname, MAXHOST, NULL, 0, 0);
+	if (status) {
+        inet_ntop(AF_INET, &(clientaddr_in.sin_addr), hostname, MAXHOST);
+    }
+    
+    printf("\n[UDP] Mensaje recibido de %s:%u - '%s'\n", 
+           hostname, ntohs(clientaddr_in.sin_port), buffer);
+    
+    // LOG: Comunicación realizada
+    snprintf(log_msg, sizeof(log_msg), 
+             "Comunicación realizada - Host: %s, IP: %s, Protocolo: UDP, Puerto: %u",
+             hostname, 
+             inet_ntoa(clientaddr_in.sin_addr),
+             ntohs(clientaddr_in.sin_port));
+    escribirLog(log_msg, sem);
+
+	char *respuesta_morse = AnalisisEstados (buffer, &estado_udp);
+	if (respuesta_morse == NULL) {
+        strcpy(respuesta, "500 Error interno del servidor\r\n");
+    } else {
+        strncpy(respuesta, respuesta_morse, TAM_BUFFER - 1);
+        respuesta[TAM_BUFFER - 1] = '\0';
+        free(respuesta_morse);
+    }
+
+	 // LOG: Si es comando FRASE
+    if (strncmp(buffer, "FRASE ", 6) == 0) {
+        snprintf(log_msg, sizeof(log_msg),
+                 "Frase recibida - Host: %s, IP: %s, Protocolo: UDP, Puerto: %u, Frase: %s",
+                 hostname,
+                 inet_ntoa(clientaddr_in.sin_addr),
+                 ntohs(clientaddr_in.sin_port),
+                 buffer);
+        escribirLog(log_msg, sem);
+    }
+    
+	/*
       memset (&hints, 0, sizeof (hints));
       hints.ai_family = AF_INET;
-		/* Treat the message as a string containing a hostname. */
-	    /* Esta funci�n es la recomendada para la compatibilidad con IPv6 gethostbyname queda obsoleta. */
+		// Treat the message as a string containing a hostname. 
+	    // Esta funci�n es la recomendada para la compatibilidad con IPv6 gethostbyname queda obsoleta. 
     errcode = getaddrinfo (buffer, NULL, &hints, &res); 
     if (errcode != 0){
-		/* Name was not found.  Return a
-		 * special value signifying the error. */
+		// Name was not found.  Return a
+		 //special value signifying the error. 
 		reqaddr.s_addr = ADDRNOTFOUND;
       }
     else {
-		/* Copy address of host into the return buffer. */
+		//Copy address of host into the return buffer. 
 		reqaddr = ((struct sockaddr_in *) res->ai_addr)->sin_addr;
 	}
      freeaddrinfo(res);
+	 */
 
-	nc = sendto (s, &reqaddr, sizeof(struct in_addr),
-			0, (struct sockaddr *)&clientaddr_in, addrlen);
-	if ( nc == -1) {
-         perror("serverUDP");
-         printf("%s: sendto error\n", "serverUDP");
-         return;
-         }   
+	//Enviamos respuesta
+	if (sendto (s, respuesta, strlen (respuesta),
+			0, (struct sockaddr *)&clientaddr_in, addrlen) ==-1){
+				perror ("serverUDP - sendto");
+			}
+	printf("[UDP] Respuesta enviada: %s", respuesta);
+
+	// LOG: Respuesta enviada
+    snprintf(log_msg, sizeof(log_msg),
+             "Respuesta enviada - Host: %s, IP: %s, Protocolo: UDP, Puerto: %u, Respuesta: %s",
+             hostname,
+             inet_ntoa(clientaddr_in.sin_addr),
+             ntohs(clientaddr_in.sin_port),
+             respuesta);
+    escribirLog(log_msg, sem);
+
+	 // Si es FIN, resetear estado para el próximo cliente
+    if (estado_udp == STATE_DONE) {
+        printf("[UDP] Cliente finalizado, reseteando estado\n");
+        estado_udp = STATE_WAIT_HOLA;
+    }
  }
 
 
@@ -687,14 +738,12 @@ void escribirLog(char *mensaje, sem_t *sem) {
     FILE *log_file;
     time_t now;
     char timestamp[64];
-        fprintf(stderr, "[DEBUG] escribirLog llamada con: %s\n", mensaje);
 
     // Obtener fecha y hora actual
     time(&now);
     struct tm *t = localtime(&now);
     strftime(timestamp, sizeof(timestamp), "%Y-%m-%d %H:%M:%S", t);
 
-	    fprintf(stderr, "[DEBUG] Intentando sem_wait...\n");
 
     
     // BLOQUEAR el semáforo (esperar si otro proceso está escribiendo)
@@ -707,22 +756,14 @@ void escribirLog(char *mensaje, sem_t *sem) {
         sem_post(sem);  // DESBLOQUEAR aunque haya error
         return;
     }
-	    fprintf(stderr, "[DEBUG] Archivo abierto correctamente\n");
-
-	    fprintf(stderr, "[DEBUG] Semáforo adquirido, abriendo archivo...\n");
-
+	 
     
     // Escribir en el log: [FECHA HORA] mensaje
     fprintf(log_file, "[%s] %s\n", timestamp, mensaje);
-	    fprintf(stderr, "[DEBUG] Mensaje escrito en log\n");
-
-	
-	
 
 
     fflush(log_file);  // Asegurar que se escribe inmediatamente
     fclose(log_file);
-	    fprintf(stderr, "[DEBUG] Archivo cerrado\n");
 
     
     // DESBLOQUEAR el semáforo (permitir que otro proceso escriba)
@@ -765,7 +806,6 @@ char * AnalisisEstados(char *mensaje, int *estado) {
         linea[len-2] = '\0';
     }
     
-    //printf("[DEBUG] Estado: %d, Mensaje: '%s'\n", *estado, linea);
     
     switch (*estado) {
         case STATE_WAIT_HOLA:
