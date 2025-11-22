@@ -80,12 +80,16 @@ char *argv[];
 
 	char buffer[TAM_BUFFER];
 	char bufResp[TAM_BUFFER];
+    FILE *archivo_ordenes = NULL;   // Para leer comandos del archivo
+    char *linea_leida = NULL;        // Línea leída del archivo
+    size_t len_linea = 0;           // Tamaño del buffer para getline
+    ssize_t nread;                   // Bytes leídos por getline
 
-
-	if (argc != 3) {
-		fprintf(stderr, "Usage:  %s <nameserver> <target>\n", argv[0]);
-		exit(1);
-	}
+    //4 argumentos son necesarios: ./cliente nogal UDP ordenes.txt
+ 	if (argc != 4) {
+    fprintf(stderr, "Uso: %s <servidor> <protocolo> <archivo_ordenes>\n", argv[0]);
+    exit(1);
+    }
 	
 		/* Create the socket. */
 	s = socket (AF_INET, SOCK_DGRAM, 0);
@@ -186,19 +190,42 @@ char *argv[];
     memset (buffer,0,TAM_BUFFER);
         */
 
-	while (1) {
-        // Leer comando del usuario
-        printf("C: ");
-        fflush(stdout);
+    // Abrir archivo de órdenes
+    archivo_ordenes = fopen(argv[3], "r");
+    if (archivo_ordenes == NULL) {
+        perror(argv[0]);
+        fprintf(stderr, "%s: No se pudo abrir el archivo %s\n", argv[0], argv[3]);
+        close(s);
+        exit(1);
+    }
+    printf("[Cliente UDP] Leyendo comandos desde: %s\n", argv[3]);
 
+        // Bucle de lectura desde archivo (igual que TCP)
+    while ((nread = getline(&linea_leida, &len_linea, archivo_ordenes)) != -1) {
+        // Limpiar buffers
         memset(buffer, 0, TAM_BUFFER);
-        if (fgets(buffer, TAM_BUFFER, stdin) == NULL) {
-            break;  // EOF o error
+        memset(bufResp, 0, TAM_BUFFER);
+        
+        // Eliminar el salto de línea que añade getline
+        if (linea_leida[nread-1] == '\n') {
+            linea_leida[nread-1] = '\0';
+            nread--;
         }
-
-        // Quitar el '\n' que añade fgets y poner '\r\n'
-        buffer[strlen(buffer)-1] = '\0';
+        
+        // Verificar que la línea no esté vacía
+        if (nread == 0) {
+            continue;  // Saltar líneas vacías
+        }
+        
+        // Copiar la línea al buffer
+        strncpy(buffer, linea_leida, TAM_BUFFER-3);
+        buffer[TAM_BUFFER-3] = '\0';  // Asegurar terminación
+        
+        // Añadir \r\n al final (protocolo)
         strcat(buffer, "\r\n");
+        
+        // Mostrar qué enviamos
+        printf("C: %s", buffer);
 
         // ==========================================
         // ENVIAR COMANDO CON REINTENTOS
@@ -242,8 +269,7 @@ char *argv[];
                 // Si es mensaje de cierre (221), terminar
                 if (strncmp(bufResp, "221", 3) == 0) {
                     printf("\n[Cliente] Cerrando conexión...\n");
-                    close(s);
-                    exit(0);
+                    break;
                 }
             }
         }
@@ -251,9 +277,18 @@ char *argv[];
         // Verificar si se agotaron los reintentos
         if (n_retry == 0 && !respuesta_recibida) {
             fprintf(stderr, "[ERROR] No se pudo contactar con el servidor tras %d intentos\n", RETRIES);
-            close(s);
-            exit(1);
+            break;
         }
+    }
+
+    // Liberar memoria de getline
+    if (linea_leida) {
+        free(linea_leida);
+    }
+
+    // Cerrar archivo
+    if (archivo_ordenes) {
+        fclose(archivo_ordenes);
     }
 
     // Cerrar socket

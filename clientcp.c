@@ -55,6 +55,9 @@ char *argv[];
 	size_t len = 0;                  // Tamaño del buffer para getline
 	ssize_t nread;                   // Bytes leídos por getline
 
+	FILE *archivo_salida = NULL; //Escribir respuestas
+	char nombre_archivo_salida[50]; //Nombre --> el puerto
+
 	if (argc != 4) {
     fprintf(stderr, "Uso: %s <servidor> <protocolo> <archivo_ordenes>\n", argv[0]);
     fprintf(stderr, "Ejemplo: %s nogal TCP ordenes.txt\n", argv[0]);
@@ -120,6 +123,27 @@ char *argv[];
 		exit(1);
 	 }
 
+	 // Crear archivo de salida con el nombre del puerto efímero
+	sprintf(nombre_archivo_salida, "%u.txt", ntohs(myaddr_in.sin_port));
+	archivo_salida = fopen(nombre_archivo_salida, "w");
+	if (archivo_salida == NULL) {
+		perror(argv[0]);
+		fprintf(stderr, "%s: No se pudo crear el archivo de salida %s\n", 
+				argv[0], nombre_archivo_salida);
+		close(s);
+		fclose(archivo_ordenes);
+		exit(1);
+	}
+
+	printf("Archivo de salida: %s\n", nombre_archivo_salida);
+	fprintf(archivo_salida, "=== CLIENTE %s - Puerto: %u ===\n", 
+			argv[2], ntohs(myaddr_in.sin_port));
+	fprintf(archivo_salida, "Servidor: %s\n", argv[1]);
+	fprintf(archivo_salida, "Protocolo: %s\n", argv[2]);
+	fprintf(archivo_salida, "Archivo de órdenes: %s\n\n", argv[3]);
+	fflush(archivo_salida);
+
+
 	 // Abrir archivo de órdenes
 	archivo_ordenes = fopen(argv[3], "r");
 	if (archivo_ordenes == NULL) {
@@ -144,7 +168,6 @@ char *argv[];
 	printf("Connected to %s on port %u at %s",
         argv[1], ntohs(myaddr_in.sin_port), (char *) ctime(&timevar));
 
-	// ============ ESTILO LUIS - CLIENTE INTERACTIVO MORSE ============
 	char bufr[TAM_BUFFER];  // Buffer separado para recibir
 
 // *** PASO 1: RECIBIR MENSAJE DE BIENVENIDA (220) ***
@@ -153,6 +176,8 @@ char *argv[];
 	if (i == -1) {
 		perror(argv[0]);
 		fprintf(stderr, "%s: Error al recibir bienvenida\n", argv[0]);
+		fprintf(archivo_salida, "[ERROR] Error al recibir respuesta\n"); 
+    	fflush(archivo_salida);
 		exit(1);
 	}
 
@@ -161,6 +186,9 @@ char *argv[];
 		j = recv(s, &bufr[i], TAM_BUFFER-i, 0);
 		if (j == -1) {
 			perror(argv[0]);
+			fprintf(stderr, "%s: error reading result\n", argv[0]);
+    		fprintf(archivo_salida, "[ERROR] Error al recibir respuesta completa\n");  // *** AÑADIR ***
+    		fflush(archivo_salida);
 			exit(1);
 		}
 		if (j == 0) break;
@@ -169,6 +197,8 @@ char *argv[];
 
 	bufr[TAM_BUFFER-1] = '\0';
 	printf("S: %s\n", bufr);
+	fprintf(archivo_salida, "S: %s\n", bufr);  
+	fflush(archivo_salida);
 	
 
 	// *** PASO 2: BUCLE DE LECTURA DESDE ARCHIVO ***
@@ -198,11 +228,15 @@ char *argv[];
 		
 		// Escribir en archivo y consola lo que enviamos
 		printf("C: %s", buf);
+		fprintf(archivo_salida, "C: %s", buf);  
+		fflush(archivo_salida);
 
 		// Enviar mensaje al servidor
 		if (send(s, buf, TAM_BUFFER, 0) != TAM_BUFFER) {
 			perror(argv[0]);
 			fprintf(stderr, "%s: Error al enviar mensaje\n", argv[0]);
+			fprintf(archivo_salida, "[ERROR] Error al enviar mensaje\n");  
+    		fflush(archivo_salida);
 			break;
 		}
 		
@@ -231,16 +265,18 @@ char *argv[];
 		
 		// Escribir respuesta en archivo y consola
 		printf("S: %s\n", bufr);
-
+		fprintf(archivo_salida, "S: %s\n", bufr);  
 		
 		// Comprobar si es el mensaje de cierre
 		if (strstr(bufr, "221") != NULL) {
 			printf("\nServidor cerró la conexión. Saliendo...\n");
+			fprintf(archivo_salida, "\n=== Servidor cerró la conexión ===\n");  
+    		fflush(archivo_salida);
 			break;
 		}
 	}
 
-	// *** PASO 2: BUCLE INTERACTIVO (como Luis) ***
+	// *** PASO 2: BUCLE INTERACTIVO  ***
 	/*while(1)
 	{
 		// Limpiar buffers
@@ -297,7 +333,7 @@ char *argv[];
 				
 	
     
-    // Comprobar si es el mensaje de cierre (como Luis)
+    // Comprobar si es el mensaje de cierre 
     if (strstr(bufr, "221 Cerrando el servicio") != NULL) {
         printf("\nServidor cerró la conexión. Saliendo...\n");
         break;
@@ -339,6 +375,15 @@ char *argv[];
 	if (archivo_ordenes) {
 		fclose(archivo_ordenes);
 	}
+
+	// Cerrar archivo de salida
+	if (archivo_salida) {
+		fprintf(archivo_salida, "\n=== Fin de la comunicación ===\n");
+		time(&timevar);
+		fprintf(archivo_salida, "Finalizado: %s", ctime(&timevar));
+		fclose(archivo_salida);
+		printf("Respuestas guardadas en: %s\n", nombre_archivo_salida);
+}
 	
     /* Print message indicating completion of task. */
 	time(&timevar);
