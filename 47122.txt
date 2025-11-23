@@ -1,4 +1,4 @@
-=== CLIENTE TCP - Puerto: 42242 ===
+=== CLIENTE TCP - Puerto: 47122 ===
 Servidor: localhost
 Protocolo: TCP
 Archivo de órdenes: ordenes.txt
@@ -27,4 +27,4 @@ S: 221 Cerrando el servicio
 === Servidor cerró la conexión ===
 
 === Fin de la comunicación ===
-Finalizado: Sat Nov 22 22:16:19 2025
+Finalizado: Sun Nov 23 21:22:32 2025

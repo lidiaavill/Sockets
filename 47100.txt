@@ -1,20 +1,14 @@
-=== CLIENTE TCP - Puerto: 42260 ===
+=== CLIENTE TCP - Puerto: 47100 ===
 Servidor: localhost
 Protocolo: TCP
-Archivo de órdenes: ordenes2.txt
+Archivo de órdenes: ordenes1.txt
 
 S: 220 Servicio preparado
 
-C: HELO usal.es
-S: 500 Error de sintaxis
-
-C: FRASE Se acercan tormentas
-S: 500 Error de sintaxis
-
-C: HOLA usal.es
+C: HOLA marca.com
 S: 240 OK
 
-C: PHRASE Ten cuidado
+C: PHRASE SOS
 S: 500 Error de sintaxis
 
 C: FRASE Lunes soleado
@@ -23,6 +17,9 @@ S: 250 MORSE .-../..-/-././...//.../---/.-.././.-/-../---
 C: FRASE Hoy voy de fiesta
 S: 250 MORSE ..../---/-.--//...-/---/-.--//-.././/..-./.././.../-/.-
 
+C: Esto no funciona
+S: 500 Error de sintaxis
+
 C: FIN
 S: 221 Cerrando el servicio
 
@@ -30,4 +27,4 @@ S: 221 Cerrando el servicio
 === Servidor cerró la conexión ===
 
 === Fin de la comunicación ===
-Finalizado: Sat Nov 22 22:16:20 2025
+Finalizado: Sun Nov 23 21:22:32 2025
