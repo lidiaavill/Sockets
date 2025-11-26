@@ -1,0 +1,33 @@
+=== CLIENTE TCP - Puerto: 48272 ===
+Servidor: nogal
+Protocolo: TCP
+Archivo de órdenes: ordenes2.txt
+
+S: 220 Servicio preparado
+
+C: HELO usal.es
+S: 500 Error de sintaxis
+
+C: FRASE Se acercan tormentas
+S: 500 Error de sintaxis
+
+C: HOLA usal.es
+S: 240 OK
+
+C: PHRASE Ten cuidado
+S: 500 Error de sintaxis
+
+C: FRASE Lunes soleado
+S: 250 MORSE .-../..-/-././...//.../---/.-.././.-/-../---
+
+C: FRASE Hoy voy de fiesta
+S: 250 MORSE ..../---/-.--//...-/---/-.--//-.././/..-./.././.../-/.-
+
+C: FIN
+S: 221 Cerrando el servicio
+
+
+=== Servidor cerró la conexión ===
+
+=== Fin de la comunicación ===
+Finalizado: Wed Nov 26 14:47:52 2025

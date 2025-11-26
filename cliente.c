@@ -1,3 +1,4 @@
+#define _GNU_SOURCE
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
@@ -10,6 +11,7 @@
 #include <time.h>
 #include <sys/errno.h>
 #include <signal.h>
+#include <ctype.h> 
 
 extern int errno;
 
@@ -59,7 +61,7 @@ FILE* crear_archivo_salida(char *nombre_programa, struct sockaddr_in *myaddr_in,
             protocolo, ntohs(myaddr_in->sin_port));
     fprintf(archivo_salida, "Servidor: %s\n", servidor);
     fprintf(archivo_salida, "Protocolo: %s\n", protocolo);
-    fprintf(archivo_salida, "Archivo de órdenes: %s\n\n", archivo_ordenes);
+    fprintf(archivo_salida, "Archivo de ordenes: %s\n\n", archivo_ordenes);
     fflush(archivo_salida);
     
     return archivo_salida;
@@ -75,8 +77,7 @@ void clienteTCP(char *servidor, char *archivo_ordenes, char *nombre_programa) {
     FILE *archivo_salida = NULL;
     
     FILE *archivo_ordenes_fp = NULL;
-    char *linea_leida = NULL;
-    size_t len = 0;
+    char linea_buffer [TAM_BUFFER];
     ssize_t nread;
     
     //CREAR SOCKET
@@ -180,14 +181,16 @@ void clienteTCP(char *servidor, char *archivo_ordenes, char *nombre_programa) {
     fflush(archivo_salida);
     
     //BUCLE DE LECTURA DESDE ARCHIVO
-    while ((nread = getline(&linea_leida, &len, archivo_ordenes_fp)) != -1) {
+    while (fgets(linea_buffer, TAM_BUFFER, archivo_ordenes_fp) != NULL){
         // Limpiar buffers
         memset(buf, 0, TAM_BUFFER);
         memset(bufr, 0, TAM_BUFFER);
-        
+
+        nread = strlen (linea_buffer);
+                
         // Eliminar el salto de línea que añade getline
-        if (linea_leida[nread-1] == '\n') {
-            linea_leida[nread-1] = '\0';
+        if (nread > 0 && linea_buffer[nread-1] == '\n') {  
+            linea_buffer[nread-1] = '\0';                 
             nread--;
         }
         
@@ -197,7 +200,7 @@ void clienteTCP(char *servidor, char *archivo_ordenes, char *nombre_programa) {
         }
         
         // Copiar la línea al buffer
-        strncpy(buf, linea_leida, TAM_BUFFER-3);
+        strncpy(buf, linea_buffer, TAM_BUFFER-3);
         buf[TAM_BUFFER-3] = '\0';  // Asegurar terminación
         
         // Añadir \r\n al final 
@@ -249,8 +252,8 @@ void clienteTCP(char *servidor, char *archivo_ordenes, char *nombre_programa) {
         
         // Comprobar si es el mensaje de cierre
         if (strstr(bufr, "221") != NULL) {
-            printf("\nServidor cerró la conexión. Saliendo...\n");
-            fprintf(archivo_salida, "\n=== Servidor cerró la conexión ===\n");
+            printf("\nServidor cerró la conexion. Saliendo...\n");
+            fprintf(archivo_salida, "\n=== Servidor cerró la conexion ===\n");
             fflush(archivo_salida);
             break;
         }
@@ -262,20 +265,17 @@ void clienteTCP(char *servidor, char *archivo_ordenes, char *nombre_programa) {
         fprintf(stderr, "%s: unable to shutdown socket\n", nombre_programa);
     }
     
-    if (linea_leida) {
-        free(linea_leida);
-    }
-    
+        
     if (archivo_ordenes_fp) {
         fclose(archivo_ordenes_fp);
     }
     
     if (archivo_salida) {
-        fprintf(archivo_salida, "\n=== Fin de la comunicación ===\n");
+        fprintf(archivo_salida, "\n=== Fin de la comunicacion ===\n");
         time(&timevar);
         fprintf(archivo_salida, "Finalizado: %s", ctime(&timevar));
         fclose(archivo_salida);
-        printf("Respuestas guardadas en: %s.txt\n", ntohs(myaddr_in.sin_port));
+        printf("Respuestas guardadas en: %u.txt\n", ntohs(myaddr_in.sin_port));
     }
     
     close(s);
@@ -291,7 +291,7 @@ void handler_udp() {
 void clienteUDP(char *servidor, char *archivo_ordenes, char *nombre_programa) {
     int s;
     struct sockaddr_in myaddr_in, servaddr_in;
-    int addrlen;
+    socklen_t addrlen;
     long timevar;
     struct sigaction vec;
     
@@ -299,9 +299,10 @@ void clienteUDP(char *servidor, char *archivo_ordenes, char *nombre_programa) {
     char bufResp[TAM_BUFFER];
     
     FILE *archivo_ordenes_fp = NULL;
-    char *linea_leida = NULL;
-    size_t len_linea = 0;
+    char linea_buffer [TAM_BUFFER];
     ssize_t nread;
+
+    FILE *archivo_salida=NULL;
     
     //CREAR SOCKET
     s = socket(AF_INET, SOCK_DGRAM, 0);
@@ -336,6 +337,15 @@ void clienteUDP(char *servidor, char *archivo_ordenes, char *nombre_programa) {
         close(s);
         exit(1);
     }
+
+    //CREAR ARCHIVO SALIDA
+    archivo_salida = crear_archivo_salida(nombre_programa, &myaddr_in, 
+                                           "UDP", servidor, archivo_ordenes);
+    if (archivo_salida == NULL) {
+        close(s);
+        exit(1);
+    }
+
     
     //MENSAJE CONEXIÓN
     time(&timevar);
@@ -371,17 +381,77 @@ void clienteUDP(char *servidor, char *archivo_ordenes, char *nombre_programa) {
         close(s);
         exit(1);
     }
+    char mensaje_inicial[TAM_BUFFER];
+    memset(mensaje_inicial, 0, TAM_BUFFER);
+    strcpy(mensaje_inicial, "\r\n");
+    
+    if (sendto(s, mensaje_inicial, strlen(mensaje_inicial), 0,
+              (struct sockaddr *)&servaddr_in,
+              sizeof(struct sockaddr_in)) == -1) {
+        perror(nombre_programa);
+        fprintf(stderr, "%s: Error al enviar mensaje inicial\n", nombre_programa);
+        fclose(archivo_ordenes_fp);
+        fclose(archivo_salida);
+        close(s);
+        exit(1);
+    }
+    
+    // Esperar respuesta 220 (Servicio preparado)
+    printf("[Cliente UDP] Esperando respuesta inicial del servidor...\n");
+    alarm(TIMEOUT);
+    memset(bufResp, 0, TAM_BUFFER);
+    
+    if (recvfrom(s, bufResp, TAM_BUFFER, 0,
+                (struct sockaddr *)&servaddr_in, &addrlen) == -1) {
+        if (errno == EINTR) {
+            fprintf(stderr, "[ERROR] Timeout esperando respuesta inicial del servidor\n");
+            fprintf(archivo_salida, "[ERROR] Timeout esperando respuesta 220\n");
+        } else {
+            perror(nombre_programa);
+            fprintf(stderr, "%s: Error al recibir respuesta inicial\n", nombre_programa);
+            fprintf(archivo_salida, "[ERROR] Error al recibir respuesta inicial\n");
+        }
+        fflush(archivo_salida);
+        fclose(archivo_ordenes_fp);
+        fclose(archivo_salida);
+        close(s);
+        exit(1);
+    }
+    
+    alarm(0);  // Cancelar alarma
+    
+    // Mostrar y guardar respuesta 220
+    printf("S: %s", bufResp);
+    fprintf(archivo_salida, "S: %s", bufResp);
+    fflush(archivo_salida);
+    
+    // Verificar que sea el mensaje 220
+    if (strncmp(bufResp, "220", 3) != 0) {
+        fprintf(stderr, "[ERROR] Respuesta inicial inesperada: %s\n", bufResp);
+        fprintf(archivo_salida, "[ERROR] Se esperaba '220' pero se recibió: %s\n", bufResp);
+        fflush(archivo_salida);
+        fclose(archivo_ordenes_fp);
+        fclose(archivo_salida);
+        close(s);
+        exit(1);
+    }
+    
+    //printf("[Cliente UDP] Conexión inicial completada. Enviando comandos...\n\n");
+    fprintf(archivo_salida, "\n--- Inicio de comandos ---\n\n");
+    fflush(archivo_salida);
+    
     
     
     // BUCLE DE LECTURA DESDE ARCHIVO
-    while ((nread = getline(&linea_leida, &len_linea, archivo_ordenes_fp)) != -1) {
+    while (fgets(linea_buffer, TAM_BUFFER, archivo_ordenes_fp) != NULL) {
         // Limpiar buffers
         memset(buffer, 0, TAM_BUFFER);
         memset(bufResp, 0, TAM_BUFFER);
+         nread = strlen(linea_buffer);
         
         // Eliminar el salto de línea que añade getline
-        if (linea_leida[nread-1] == '\n') {
-            linea_leida[nread-1] = '\0';
+        if (linea_buffer[nread-1] == '\n') {
+            linea_buffer[nread-1] = '\0';
             nread--;
         }
         
@@ -391,7 +461,7 @@ void clienteUDP(char *servidor, char *archivo_ordenes, char *nombre_programa) {
         }
         
         // Copiar la línea al buffer
-        strncpy(buffer, linea_leida, TAM_BUFFER-3);
+        strncpy(buffer, linea_buffer, TAM_BUFFER-3);
         buffer[TAM_BUFFER-3] = '\0';  // Asegurar terminación
         
         // Añadir \r\n al final (protocolo)
@@ -399,6 +469,9 @@ void clienteUDP(char *servidor, char *archivo_ordenes, char *nombre_programa) {
         
         // Mostrar qué enviamos
         printf("C: %s", buffer);
+        fprintf(archivo_salida, "C: %s", buffer);
+        fflush(archivo_salida);
+
         
         //ENVIAR COMANDO CON REINTENTOS
         int n_retry = RETRIES;
@@ -415,7 +488,8 @@ void clienteUDP(char *servidor, char *archivo_ordenes, char *nombre_programa) {
                 close(s);
                 exit(1);
             }
-            
+
+                        
             // Activar alarma
             alarm(TIMEOUT);
             
@@ -439,10 +513,12 @@ void clienteUDP(char *servidor, char *archivo_ordenes, char *nombre_programa) {
                 alarm(0);
                 respuesta_recibida = 1;
                 printf("S: %s", bufResp);
+                fprintf(archivo_salida, "S: %s", bufResp);
+                fflush(archivo_salida);
                 
                 // Si es mensaje de cierre (221), terminar
                 if (strncmp(bufResp, "221", 3) == 0) {
-                    printf("\n[Cliente] Cerrando conexión...\n");
+                    printf("\n[Cliente] Cerrando conexion...\n");
                     break;
                 }
             }
@@ -454,15 +530,19 @@ void clienteUDP(char *servidor, char *archivo_ordenes, char *nombre_programa) {
             break;
         }
     }
-    
-    //LIBERAR Y CERRAR
-    if (linea_leida) {
-        free(linea_leida);
-    }
-    
+           
     if (archivo_ordenes_fp) {
         fclose(archivo_ordenes_fp);
     }
+
+    // CERRAR ARCHIVO DE SALIDA
+    if (archivo_salida) {
+        fprintf(archivo_salida, "\n=== Fin de la comunicacion ===\n");
+        time(&timevar);
+        fprintf(archivo_salida, "Finalizado: %s", ctime(&timevar));
+        fclose(archivo_salida);
+    }
+        
     
     close(s);
 }
@@ -480,7 +560,8 @@ int main(int argc, char *argv[]) {
     char *archivo_ordenes = argv[3];
     
     // Convertir protocolo a mayúsculas para comparación
-    for (int i = 0; protocolo[i]; i++) {
+    int i;
+    for (i = 0; protocolo[i]; i++) {
         protocolo[i] = toupper(protocolo[i]);
     }
     

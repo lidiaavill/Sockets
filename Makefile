@@ -1,20 +1,17 @@
 CC = gcc
-CFLAGS = 
+CFLAGS = -g -Wall
 #Descomentar la siguiente linea para olivo
 #LIBS = -lsocket -lnsl
 #Descomentar la siguiente linea para linux
-LIBS =
+LIBS = -lrt -lpthread
 
-PROGS = servidor cliente cliente
+PROGS = servidor cliente
 
 all: ${PROGS}
 
 servidor: servidor.o
 	${CC} ${CFLAGS} -o $@ servidor.o ${LIBS}
 	
-cliente: cliente.o
-	${CC} ${CFLAGS} -o $@ cliente.o ${LIBS}
-
 cliente: cliente.o
 	${CC} ${CFLAGS} -o $@ cliente.o ${LIBS}
 

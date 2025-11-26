@@ -94,7 +94,7 @@ char *argv[];
     
     struct sockaddr_in myaddr_in; 	/* for local socket address */
     struct sockaddr_in clientaddr_in;	/* for peer socket address */
-	int addrlen;
+	socklen_t addrlen;
 	
     fd_set readmask;
     int numfds,s_mayor;
@@ -368,7 +368,7 @@ void serverTCP(int s, struct sockaddr_in clientaddr_in, sem_t *sem)
 	char hostname[MAXHOST];		/* remote host's name string */
 
 	int len, len1, status;
-    struct hostent *hp;		/* pointer to host info for remote host */
+    //struct hostent *hp;		/* pointer to host info for remote host */
     long timevar;			/* contains time returned by time() */
     
     struct linger linger;		/* allow a lingering, graceful close; */
@@ -448,12 +448,9 @@ void serverTCP(int s, struct sockaddr_in clientaddr_in, sem_t *sem)
 	//printf ("[SERVIDOR] Enviando bienvenida: %s", bufenv);
 	
 	if (send(s, bufenv, TAM_BUFFER, 0) != TAM_BUFFER){
-		free (response);
 		errout (hostname);
 	}
 
-	free (response);
-	response=NULL;
 
 
 	//RECV = RECIBIR
@@ -517,8 +514,15 @@ void serverTCP(int s, struct sockaddr_in clientaddr_in, sem_t *sem)
 		memset (bufenv, 0, TAM_BUFFER);
 		strncpy (bufenv, response, TAM_BUFFER-1);
 		if (send(s, bufenv, TAM_BUFFER, 0) != TAM_BUFFER) errout(hostname);
+
 		printf("\nSent response number %d currentSTATE: %d", reqcnt,estado);
 		printf("\nResponse: %s", response);
+		
+		if (response!=NULL){
+			free (response);
+			response = NULL;
+		}
+		
 
 		// LOG: Respuesta enviada
 		snprintf(log_msg, sizeof(log_msg),
@@ -540,16 +544,18 @@ void serverTCP(int s, struct sockaddr_in clientaddr_in, sem_t *sem)
 		 * times printed in the log file to reflect more accurately
 		 * the length of time this connection was used.
 		 */
-	//close(s);
+	close(s);
 
 		/* Log a finishing message. */
-	//time (&timevar);
+	time (&timevar);
 		/* The port number must be converted first to host byte
 		 * order before printing.  On most hosts, this is not
 		 * necessary, but the ntohs() call is included here so
 		 * that this program could easily be ported to a host
 		 * that does require it.
 		 */
+	
+
 	printf("Completed %s port %u, %d requests, at %s\n",
 		hostname, ntohs(clientaddr_in.sin_port), reqcnt, (char *) ctime(&timevar));
 
@@ -585,16 +591,15 @@ void errout(char *hostname)
  */
 void serverUDP(int s, char * buffer, struct sockaddr_in clientaddr_in, sem_t *sem)
 {
-    struct in_addr reqaddr;	/* for requested host's address */
-    struct hostent *hp;		/* pointer to host info for requested host */
-    int nc, errcode;
+   // struct in_addr reqaddr;	/* for requested host's address */
+   // struct hostent *hp;		/* pointer to host info for requested host */
+   // int nc, errcode;
 
-    struct addrinfo hints, *res;
+	//struct addrinfo hints, *res;
 
 	char respuesta [TAM_BUFFER];
 	char hostname [MAXHOST];
 	char log_msg [512];
-	static int estado_udp = STATE_WAIT_HOLA;
 	int status;
 
 	int addrlen;
@@ -619,49 +624,83 @@ void serverUDP(int s, char * buffer, struct sockaddr_in clientaddr_in, sem_t *se
              ntohs(clientaddr_in.sin_port));
     escribirLog(log_msg, sem);
 
-	char *respuesta_morse = AnalisisEstados (buffer, &estado_udp);
-	if (respuesta_morse == NULL) {
-        strcpy(respuesta, "500 Error interno del servidor\r\n");
-    } else {
-        strncpy(respuesta, respuesta_morse, TAM_BUFFER - 1);
-        respuesta[TAM_BUFFER - 1] = '\0';
-        free(respuesta_morse);
-    }
+	
+	//Limpiar buffer de respuesta
+	memset (respuesta,0,TAM_BUFFER);
 
-	 // LOG: Si es comando FRASE
-    if (strncmp(buffer, "FRASE ", 6) == 0) {
-        snprintf(log_msg, sizeof(log_msg),
+	//Creamos copias del buffer para procesarlo (eliminar \r\n)
+	char buffer_limpio [TAM_BUFFER];
+	strncpy (buffer_limpio, buffer, TAM_BUFFER-1);
+	buffer_limpio[TAM_BUFFER-1]='\0';
+
+	//Eliminamos \r\n del final si existe
+	int len = strlen (buffer_limpio);
+	if (len >=2 && buffer_limpio[len-2] == '\r' && buffer_limpio[len-1] == '\n' ){
+    	buffer_limpio[len-2] = '\0';
+	}
+	if (len >= 1 && buffer_limpio[len-1] == '\n') {
+    	buffer_limpio[len-1] = '\0';
+	}
+
+	// Procesar comando según su tipo
+	if (strcmp(buffer_limpio, "") == 0 || strcmp(buffer, "\r\n") == 0) {
+    	strcpy(respuesta, "220 Servicio preparado\r\n");
+    	printf("[UDP] Respuesta: 220 Servicio preparado\n");
+	}
+
+	else if (strncmp(buffer_limpio, "HOLA ", 5) == 0) {
+    	char *dominio = buffer_limpio + 5;
+
+    	if (strlen(dominio) > 0) {
+        	strcpy(respuesta, "240 OK\r\n");
+        	printf("[UDP] HOLA recibido de dominio: %s\n", dominio);
+    	} 
+
+		else {
+        strcpy(respuesta, "500 Error de sintaxis\r\n");
+        printf("[UDP] Error: HOLA sin dominio\n");
+    	}
+	}
+	
+	else if (strncmp(buffer_limpio, "FRASE ", 6) == 0) {
+    	char *frase = buffer_limpio + 6;
+    
+    	if (strlen(frase) > 0) {
+        	char codigoMorse[400];
+        	memset(codigoMorse, 0, sizeof(codigoMorse));        
+        	convertirAMorse(frase, codigoMorse);        
+        	sprintf(respuesta, "250 MORSE %s\r\n", codigoMorse);
+       		printf("[UDP] Frase convertida: '%s' -> '%s'\n", frase, codigoMorse);
+        
+        	// LOG: Frase recibida
+        	snprintf(log_msg, sizeof(log_msg),
                  "Frase recibida - Host: %s, IP: %s, Protocolo: UDP, Puerto: %u, Frase: %s",
                  hostname,
                  inet_ntoa(clientaddr_in.sin_addr),
                  ntohs(clientaddr_in.sin_port),
-                 buffer);
-        escribirLog(log_msg, sem);
-    }
-    
-	/*
-      memset (&hints, 0, sizeof (hints));
-      hints.ai_family = AF_INET;
-		// Treat the message as a string containing a hostname. 
-	    // Esta funci�n es la recomendada para la compatibilidad con IPv6 gethostbyname queda obsoleta. 
-    errcode = getaddrinfo (buffer, NULL, &hints, &res); 
-    if (errcode != 0){
-		// Name was not found.  Return a
-		 //special value signifying the error. 
-		reqaddr.s_addr = ADDRNOTFOUND;
-      }
-    else {
-		//Copy address of host into the return buffer. 
-		reqaddr = ((struct sockaddr_in *) res->ai_addr)->sin_addr;
+                 frase);
+        	escribirLog(log_msg, sem);
+    	} 
+		else {
+        	strcpy(respuesta, "500 Error de sintaxis\r\n");
+        	printf("[UDP] Error: FRASE vacía\n");
+    	}
 	}
-     freeaddrinfo(res);
-	 */
+
+	else if (strcmp(buffer_limpio, "FIN") == 0) {
+    	strcpy(respuesta, "221 Cerrando el servicio\r\n");
+    	printf("[UDP] FIN recibido\n");
+	}
+
+	else {
+    	strcpy(respuesta, "500 Error de sintaxis\r\n");
+    	printf("[UDP] Error de sintaxis: '%s'\n", buffer_limpio);
+	}
 
 	//Enviamos respuesta
-	if (sendto (s, respuesta, strlen (respuesta),
-			0, (struct sockaddr *)&clientaddr_in, addrlen) ==-1){
-				perror ("serverUDP - sendto");
-			}
+	if (sendto (s, respuesta, strlen (respuesta),0, (struct sockaddr *)&clientaddr_in, addrlen) ==-1){
+		perror ("serverUDP - sendto");
+	}
 	printf("[UDP] Respuesta enviada: %s", respuesta);
 
 	// LOG: Respuesta enviada
@@ -672,13 +711,8 @@ void serverUDP(int s, char * buffer, struct sockaddr_in clientaddr_in, sem_t *se
              ntohs(clientaddr_in.sin_port),
              respuesta);
     escribirLog(log_msg, sem);
-
-	 // Si es FIN, resetear estado para el próximo cliente
-    if (estado_udp == STATE_DONE) {
-        printf("[UDP] Cliente finalizado, reseteando estado\n");
-        estado_udp = STATE_WAIT_HOLA;
-    }
- }
+	 
+}
 
 
 /*
@@ -858,6 +892,6 @@ char * AnalisisEstados(char *mensaje, int *estado) {
             *estado = STATE_WAIT_HOLA;
             break;
     }
-    
+    free (linea);
     return respuesta;
 }

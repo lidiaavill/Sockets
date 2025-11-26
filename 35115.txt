@@ -1,0 +1,24 @@
+=== CLIENTE UDP - Puerto: 35115 ===
+Servidor: nogal
+Protocolo: UDP
+Archivo de órdenes: ordenes1.txt
+
+S: 220 Servicio preparado
+
+--- Inicio de comandos ---
+
+C: HOLA marca.com
+S: 240 OK
+C: PHRASE SOS
+S: 500 Error de sintaxis
+C: FRASE Lunes soleado
+S: 250 MORSE .-../..-/-././...//.../---/.-.././.-/-../---
+C: FRASE Hoy voy de fiesta
+S: 250 MORSE ..../---/-.--//...-/---/-.--//-.././/..-./.././.../-/.-
+C: Esto no funciona
+S: 500 Error de sintaxis
+C: FIN
+S: 221 Cerrando el servicio
+
+=== Fin de la comunicación ===
+Finalizado: Wed Nov 26 14:47:45 2025

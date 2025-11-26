@@ -1,30 +1,24 @@
-=== CLIENTE TCP - Puerto: 47122 ===
-Servidor: localhost
-Protocolo: TCP
+=== CLIENTE UDP - Puerto: 50025 ===
+Servidor: nogal
+Protocolo: UDP
 Archivo de órdenes: ordenes.txt
 
 S: 220 Servicio preparado
 
+--- Inicio de comandos ---
+
 C: HOLA usal.es
 S: 240 OK
-
 C: PHRASE pepe
 S: 500 Error de sintaxis
-
 C: FRASE SOS
 S: 250 MORSE .../---/...
-
 C: FRASE He sacado un 10
 S: 250 MORSE ...././/.../.-/-.-./.-/-../---//..-/-.//.----/-----
-
 C: Voy al cine
 S: 500 Error de sintaxis
-
 C: FIN
 S: 221 Cerrando el servicio
 
-
-=== Servidor cerró la conexión ===
-
 === Fin de la comunicación ===
-Finalizado: Sun Nov 23 21:22:32 2025
+Finalizado: Wed Nov 26 14:47:45 2025

@@ -458,3 +458,539 @@
 [2025-11-23 21:22:33] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 47098, Respuesta: 221 Cerrando el servicio
 
 [2025-11-23 21:22:33] Comunicación finalizada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 47098
+[2025-11-25 19:18:54] Comunicación realizada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 38174
+[2025-11-25 19:18:54] Comunicación realizada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 38164
+[2025-11-25 19:18:54] Comunicación realizada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 38188
+[2025-11-25 19:18:54] Comunicación realizada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 52225
+[2025-11-25 19:18:54] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 52225, Respuesta: 220 Servicio preparado
+
+[2025-11-25 19:18:54] Comunicación realizada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 52225
+[2025-11-25 19:18:54] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 52225, Respuesta: 240 OK
+
+[2025-11-25 19:18:54] Comunicación realizada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 42067
+[2025-11-25 19:18:54] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 42067, Respuesta: 220 Servicio preparado
+
+[2025-11-25 19:18:54] Comunicación realizada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 52225
+[2025-11-25 19:18:54] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 52225, Respuesta: 500 Error de sintaxis
+
+[2025-11-25 19:18:54] Comunicación realizada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 42067
+[2025-11-25 19:18:54] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 42067, Respuesta: 240 OK
+
+[2025-11-25 19:18:54] Comunicación realizada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 52225
+[2025-11-25 19:18:54] Frase recibida - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 52225, Frase: SOS
+[2025-11-25 19:18:54] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 52225, Respuesta: 250 MORSE .../---/...
+
+[2025-11-25 19:18:54] Comunicación realizada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 42067
+[2025-11-25 19:18:54] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 42067, Respuesta: 500 Error de sintaxis
+
+[2025-11-25 19:18:54] Comunicación realizada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 52225
+[2025-11-25 19:18:54] Frase recibida - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 52225, Frase: He sacado un 10
+[2025-11-25 19:18:54] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 52225, Respuesta: 250 MORSE ...././/.../.-/-.-./.-/-../---//..-/-.//.----/-----
+
+[2025-11-25 19:18:54] Comunicación realizada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 42067
+[2025-11-25 19:18:54] Frase recibida - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 42067, Frase: Lunes soleado
+[2025-11-25 19:18:54] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 42067, Respuesta: 250 MORSE .-../..-/-././...//.../---/.-.././.-/-../---
+
+[2025-11-25 19:18:54] Comunicación realizada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 52225
+[2025-11-25 19:18:54] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 52225, Respuesta: 500 Error de sintaxis
+
+[2025-11-25 19:18:54] Comunicación realizada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 42067
+[2025-11-25 19:18:54] Frase recibida - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 42067, Frase: Hoy voy de fiesta
+[2025-11-25 19:18:54] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 42067, Respuesta: 250 MORSE ..../---/-.--//...-/---/-.--//-.././/..-./.././.../-/.-
+
+[2025-11-25 19:18:54] Comunicación realizada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 52225
+[2025-11-25 19:18:54] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 52225, Respuesta: 221 Cerrando el servicio
+
+[2025-11-25 19:18:54] Comunicación realizada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 42067
+[2025-11-25 19:18:54] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 42067, Respuesta: 500 Error de sintaxis
+
+[2025-11-25 19:18:54] Comunicación realizada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 46762
+[2025-11-25 19:18:54] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 46762, Respuesta: 220 Servicio preparado
+
+[2025-11-25 19:18:54] Comunicación realizada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 42067
+[2025-11-25 19:18:54] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 42067, Respuesta: 221 Cerrando el servicio
+
+[2025-11-25 19:18:54] Comunicación realizada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 46762
+[2025-11-25 19:18:54] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 46762, Respuesta: 500 Error de sintaxis
+
+[2025-11-25 19:18:54] Comunicación realizada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 46762
+[2025-11-25 19:18:54] Frase recibida - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 46762, Frase: Se acercan tormentas
+[2025-11-25 19:18:54] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 46762, Respuesta: 250 MORSE ..././/.-/-.-././.-./-.-./.-/-.//-/---/.-./--/./-./-/.-/...
+
+[2025-11-25 19:18:54] Comunicación realizada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 46762
+[2025-11-25 19:18:54] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 46762, Respuesta: 240 OK
+
+[2025-11-25 19:18:54] Comunicación realizada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 46762
+[2025-11-25 19:18:54] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 46762, Respuesta: 500 Error de sintaxis
+
+[2025-11-25 19:18:54] Comunicación realizada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 46762
+[2025-11-25 19:18:54] Frase recibida - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 46762, Frase: Lunes soleado
+[2025-11-25 19:18:54] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 46762, Respuesta: 250 MORSE .-../..-/-././...//.../---/.-.././.-/-../---
+
+[2025-11-25 19:18:54] Comunicación realizada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 46762
+[2025-11-25 19:18:54] Frase recibida - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 46762, Frase: Hoy voy de fiesta
+[2025-11-25 19:18:54] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 46762, Respuesta: 250 MORSE ..../---/-.--//...-/---/-.--//-.././/..-./.././.../-/.-
+
+[2025-11-25 19:18:54] Comunicación realizada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 46762
+[2025-11-25 19:18:54] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 46762, Respuesta: 221 Cerrando el servicio
+
+[2025-11-25 19:18:54] Comunicación realizada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 46762
+[2025-11-25 19:18:54] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 46762, Respuesta: 221 Cerrando el servicio
+
+[2025-11-25 19:18:55] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 38174, Respuesta: 240 OK
+
+[2025-11-25 19:18:55] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 38164, Respuesta: 240 OK
+
+[2025-11-25 19:18:55] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 38188, Respuesta: 500 Error de sintaxis
+
+[2025-11-25 19:18:55] Frase recibida - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 38188, Frase: FRASE Se acercan tormentas
+
+[2025-11-25 19:18:56] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 38174, Respuesta: 500 Error de sintaxis
+
+[2025-11-25 19:18:56] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 38164, Respuesta: 500 Error de sintaxis
+
+[2025-11-25 19:18:56] Frase recibida - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 38174, Frase: FRASE Lunes soleado
+
+[2025-11-25 19:18:56] Frase recibida - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 38164, Frase: FRASE SOS
+
+[2025-11-25 19:18:56] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 38188, Respuesta: 500 Error de sintaxis
+
+[2025-11-25 19:18:57] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 38174, Respuesta: 250 MORSE .-../..-/-././...//.../---/.-.././.-/-../---
+
+[2025-11-25 19:18:57] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 38188, Respuesta: 240 OK
+
+[2025-11-25 19:18:57] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 38164, Respuesta: 250 MORSE .../---/...
+
+[2025-11-25 19:18:57] Frase recibida - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 38164, Frase: FRASE He sacado un 10
+
+[2025-11-25 19:18:57] Frase recibida - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 38174, Frase: FRASE Hoy voy de fiesta
+
+[2025-11-25 19:18:58] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 38174, Respuesta: 250 MORSE ..../---/-.--//...-/---/-.--//-.././/..-./.././.../-/.-
+
+[2025-11-25 19:18:58] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 38188, Respuesta: 500 Error de sintaxis
+
+[2025-11-25 19:18:58] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 38164, Respuesta: 250 MORSE ...././/.../.-/-.-./.-/-../---//..-/-.//.----/-----
+
+[2025-11-25 19:18:58] Frase recibida - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 38188, Frase: FRASE Lunes soleado
+
+[2025-11-25 19:18:59] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 38164, Respuesta: 500 Error de sintaxis
+
+[2025-11-25 19:18:59] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 38174, Respuesta: 500 Error de sintaxis
+
+[2025-11-25 19:18:59] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 38188, Respuesta: 250 MORSE .-../..-/-././...//.../---/.-.././.-/-../---
+
+[2025-11-25 19:18:59] Frase recibida - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 38188, Frase: FRASE Hoy voy de fiesta
+
+[2025-11-25 19:19:00] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 38164, Respuesta: 221 Cerrando el servicio
+
+[2025-11-25 19:19:00] Comunicación finalizada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 38164
+[2025-11-25 19:19:00] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 38188, Respuesta: 250 MORSE ..../---/-.--//...-/---/-.--//-.././/..-./.././.../-/.-
+
+[2025-11-25 19:19:00] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 38174, Respuesta: 221 Cerrando el servicio
+
+[2025-11-25 19:19:00] Comunicación finalizada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 38174
+[2025-11-25 19:19:01] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 38188, Respuesta: 221 Cerrando el servicio
+
+[2025-11-25 19:19:01] Comunicación finalizada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 38188
+[2025-11-25 19:20:02] Comunicación realizada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 46316
+[2025-11-25 19:20:02] Comunicación realizada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 46322
+[2025-11-25 19:20:02] Comunicación realizada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 46334
+[2025-11-25 19:20:02] Comunicación realizada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 42686
+[2025-11-25 19:20:02] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 42686, Respuesta: 220 Servicio preparado
+
+[2025-11-25 19:20:02] Comunicación realizada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 40503
+[2025-11-25 19:20:02] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 40503, Respuesta: 220 Servicio preparado
+
+[2025-11-25 19:20:02] Comunicación realizada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 42686
+[2025-11-25 19:20:02] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 42686, Respuesta: 240 OK
+
+[2025-11-25 19:20:02] Comunicación realizada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 40503
+[2025-11-25 19:20:02] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 40503, Respuesta: 240 OK
+
+[2025-11-25 19:20:02] Comunicación realizada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 42686
+[2025-11-25 19:20:02] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 42686, Respuesta: 500 Error de sintaxis
+
+[2025-11-25 19:20:02] Comunicación realizada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 40503
+[2025-11-25 19:20:02] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 40503, Respuesta: 500 Error de sintaxis
+
+[2025-11-25 19:20:02] Comunicación realizada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 42686
+[2025-11-25 19:20:02] Frase recibida - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 42686, Frase: SOS
+[2025-11-25 19:20:02] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 42686, Respuesta: 250 MORSE .../---/...
+
+[2025-11-25 19:20:02] Comunicación realizada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 38689
+[2025-11-25 19:20:02] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 38689, Respuesta: 220 Servicio preparado
+
+[2025-11-25 19:20:02] Comunicación realizada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 40503
+[2025-11-25 19:20:02] Frase recibida - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 40503, Frase: Lunes soleado
+[2025-11-25 19:20:02] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 40503, Respuesta: 250 MORSE .-../..-/-././...//.../---/.-.././.-/-../---
+
+[2025-11-25 19:20:02] Comunicación realizada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 42686
+[2025-11-25 19:20:02] Frase recibida - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 42686, Frase: He sacado un 10
+[2025-11-25 19:20:02] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 42686, Respuesta: 250 MORSE ...././/.../.-/-.-./.-/-../---//..-/-.//.----/-----
+
+[2025-11-25 19:20:02] Comunicación realizada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 38689
+[2025-11-25 19:20:02] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 38689, Respuesta: 500 Error de sintaxis
+
+[2025-11-25 19:20:02] Comunicación realizada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 40503
+[2025-11-25 19:20:02] Frase recibida - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 40503, Frase: Hoy voy de fiesta
+[2025-11-25 19:20:02] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 40503, Respuesta: 250 MORSE ..../---/-.--//...-/---/-.--//-.././/..-./.././.../-/.-
+
+[2025-11-25 19:20:02] Comunicación realizada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 42686
+[2025-11-25 19:20:02] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 42686, Respuesta: 500 Error de sintaxis
+
+[2025-11-25 19:20:02] Comunicación realizada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 38689
+[2025-11-25 19:20:02] Frase recibida - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 38689, Frase: Se acercan tormentas
+[2025-11-25 19:20:02] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 38689, Respuesta: 250 MORSE ..././/.-/-.-././.-./-.-./.-/-.//-/---/.-./--/./-./-/.-/...
+
+[2025-11-25 19:20:02] Comunicación realizada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 40503
+[2025-11-25 19:20:02] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 40503, Respuesta: 500 Error de sintaxis
+
+[2025-11-25 19:20:02] Comunicación realizada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 42686
+[2025-11-25 19:20:02] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 42686, Respuesta: 221 Cerrando el servicio
+
+[2025-11-25 19:20:02] Comunicación realizada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 38689
+[2025-11-25 19:20:02] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 38689, Respuesta: 240 OK
+
+[2025-11-25 19:20:02] Comunicación realizada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 40503
+[2025-11-25 19:20:02] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 40503, Respuesta: 221 Cerrando el servicio
+
+[2025-11-25 19:20:02] Comunicación realizada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 38689
+[2025-11-25 19:20:02] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 38689, Respuesta: 500 Error de sintaxis
+
+[2025-11-25 19:20:02] Comunicación realizada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 38689
+[2025-11-25 19:20:02] Frase recibida - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 38689, Frase: Lunes soleado
+[2025-11-25 19:20:02] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 38689, Respuesta: 250 MORSE .-../..-/-././...//.../---/.-.././.-/-../---
+
+[2025-11-25 19:20:02] Comunicación realizada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 38689
+[2025-11-25 19:20:02] Frase recibida - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 38689, Frase: Hoy voy de fiesta
+[2025-11-25 19:20:02] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 38689, Respuesta: 250 MORSE ..../---/-.--//...-/---/-.--//-.././/..-./.././.../-/.-
+
+[2025-11-25 19:20:02] Comunicación realizada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 38689
+[2025-11-25 19:20:02] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 38689, Respuesta: 221 Cerrando el servicio
+
+[2025-11-25 19:20:02] Comunicación realizada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 38689
+[2025-11-25 19:20:02] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 38689, Respuesta: 221 Cerrando el servicio
+
+[2025-11-25 19:20:03] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 46334, Respuesta: 500 Error de sintaxis
+
+[2025-11-25 19:20:03] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 46316, Respuesta: 240 OK
+
+[2025-11-25 19:20:03] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 46322, Respuesta: 240 OK
+
+[2025-11-25 19:20:03] Frase recibida - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 46334, Frase: FRASE Se acercan tormentas
+
+[2025-11-25 19:20:04] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 46334, Respuesta: 500 Error de sintaxis
+
+[2025-11-25 19:20:04] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 46316, Respuesta: 500 Error de sintaxis
+
+[2025-11-25 19:20:04] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 46322, Respuesta: 500 Error de sintaxis
+
+[2025-11-25 19:20:04] Frase recibida - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 46322, Frase: FRASE Lunes soleado
+
+[2025-11-25 19:20:04] Frase recibida - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 46316, Frase: FRASE SOS
+
+[2025-11-25 19:20:05] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 46334, Respuesta: 240 OK
+
+[2025-11-25 19:20:05] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 46316, Respuesta: 250 MORSE .../---/...
+
+[2025-11-25 19:20:05] Frase recibida - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 46316, Frase: FRASE He sacado un 10
+
+[2025-11-25 19:20:05] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 46322, Respuesta: 250 MORSE .-../..-/-././...//.../---/.-.././.-/-../---
+
+[2025-11-25 19:20:05] Frase recibida - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 46322, Frase: FRASE Hoy voy de fiesta
+
+[2025-11-25 19:20:06] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 46334, Respuesta: 500 Error de sintaxis
+
+[2025-11-25 19:20:06] Frase recibida - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 46334, Frase: FRASE Lunes soleado
+
+[2025-11-25 19:20:06] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 46316, Respuesta: 250 MORSE ...././/.../.-/-.-./.-/-../---//..-/-.//.----/-----
+
+[2025-11-25 19:20:06] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 46322, Respuesta: 250 MORSE ..../---/-.--//...-/---/-.--//-.././/..-./.././.../-/.-
+
+[2025-11-25 19:20:07] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 46334, Respuesta: 250 MORSE .-../..-/-././...//.../---/.-.././.-/-../---
+
+[2025-11-25 19:20:07] Frase recibida - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 46334, Frase: FRASE Hoy voy de fiesta
+
+[2025-11-25 19:20:07] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 46316, Respuesta: 500 Error de sintaxis
+
+[2025-11-25 19:20:07] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 46322, Respuesta: 500 Error de sintaxis
+
+[2025-11-25 19:20:08] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 46334, Respuesta: 250 MORSE ..../---/-.--//...-/---/-.--//-.././/..-./.././.../-/.-
+
+[2025-11-25 19:20:08] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 46316, Respuesta: 221 Cerrando el servicio
+
+[2025-11-25 19:20:08] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 46322, Respuesta: 221 Cerrando el servicio
+
+[2025-11-25 19:20:08] Comunicación finalizada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 46316
+[2025-11-25 19:20:08] Comunicación finalizada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 46322
+[2025-11-25 19:20:09] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 46334, Respuesta: 221 Cerrando el servicio
+
+[2025-11-25 19:20:09] Comunicación finalizada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 46334
+[2025-11-25 19:32:20] Comunicación realizada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 57098
+[2025-11-25 19:32:20] Comunicación realizada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 40701
+[2025-11-25 19:32:20] Comunicación realizada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 57092
+[2025-11-25 19:32:20] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 40701, Respuesta: 220 Servicio preparado
+
+[2025-11-25 19:32:20] Comunicación realizada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 56616
+[2025-11-25 19:32:20] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 56616, Respuesta: 220 Servicio preparado
+
+[2025-11-25 19:32:20] Comunicación realizada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 33101
+[2025-11-25 19:32:20] Comunicación realizada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 57112
+[2025-11-25 19:32:20] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 33101, Respuesta: 220 Servicio preparado
+
+[2025-11-25 19:32:20] Comunicación realizada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 40701
+[2025-11-25 19:32:20] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 40701, Respuesta: 240 OK
+
+[2025-11-25 19:32:20] Comunicación realizada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 56616
+[2025-11-25 19:32:20] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 56616, Respuesta: 240 OK
+
+[2025-11-25 19:32:20] Comunicación realizada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 40701
+[2025-11-25 19:32:20] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 40701, Respuesta: 500 Error de sintaxis
+
+[2025-11-25 19:32:20] Comunicación realizada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 56616
+[2025-11-25 19:32:20] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 56616, Respuesta: 500 Error de sintaxis
+
+[2025-11-25 19:32:20] Comunicación realizada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 33101
+[2025-11-25 19:32:20] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 33101, Respuesta: 500 Error de sintaxis
+
+[2025-11-25 19:32:20] Comunicación realizada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 40701
+[2025-11-25 19:32:20] Frase recibida - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 40701, Frase: SOS
+[2025-11-25 19:32:20] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 40701, Respuesta: 250 MORSE .../---/...
+
+[2025-11-25 19:32:20] Comunicación realizada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 56616
+[2025-11-25 19:32:20] Frase recibida - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 56616, Frase: Lunes soleado
+[2025-11-25 19:32:20] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 56616, Respuesta: 250 MORSE .-../..-/-././...//.../---/.-.././.-/-../---
+
+[2025-11-25 19:32:20] Comunicación realizada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 33101
+[2025-11-25 19:32:20] Frase recibida - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 33101, Frase: Se acercan tormentas
+[2025-11-25 19:32:20] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 33101, Respuesta: 250 MORSE ..././/.-/-.-././.-./-.-./.-/-.//-/---/.-./--/./-./-/.-/...
+
+[2025-11-25 19:32:20] Comunicación realizada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 40701
+[2025-11-25 19:32:20] Frase recibida - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 40701, Frase: He sacado un 10
+[2025-11-25 19:32:20] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 40701, Respuesta: 250 MORSE ...././/.../.-/-.-./.-/-../---//..-/-.//.----/-----
+
+[2025-11-25 19:32:20] Comunicación realizada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 56616
+[2025-11-25 19:32:20] Frase recibida - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 56616, Frase: Hoy voy de fiesta
+[2025-11-25 19:32:20] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 56616, Respuesta: 250 MORSE ..../---/-.--//...-/---/-.--//-.././/..-./.././.../-/.-
+
+[2025-11-25 19:32:20] Comunicación realizada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 33101
+[2025-11-25 19:32:20] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 33101, Respuesta: 240 OK
+
+[2025-11-25 19:32:20] Comunicación realizada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 40701
+[2025-11-25 19:32:20] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 40701, Respuesta: 500 Error de sintaxis
+
+[2025-11-25 19:32:20] Comunicación realizada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 56616
+[2025-11-25 19:32:20] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 56616, Respuesta: 500 Error de sintaxis
+
+[2025-11-25 19:32:20] Comunicación realizada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 33101
+[2025-11-25 19:32:20] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 33101, Respuesta: 500 Error de sintaxis
+
+[2025-11-25 19:32:20] Comunicación realizada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 40701
+[2025-11-25 19:32:20] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 40701, Respuesta: 221 Cerrando el servicio
+
+[2025-11-25 19:32:20] Comunicación realizada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 56616
+[2025-11-25 19:32:20] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 56616, Respuesta: 221 Cerrando el servicio
+
+[2025-11-25 19:32:20] Comunicación realizada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 33101
+[2025-11-25 19:32:20] Frase recibida - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 33101, Frase: Lunes soleado
+[2025-11-25 19:32:20] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 33101, Respuesta: 250 MORSE .-../..-/-././...//.../---/.-.././.-/-../---
+
+[2025-11-25 19:32:20] Comunicación realizada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 33101
+[2025-11-25 19:32:20] Frase recibida - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 33101, Frase: Hoy voy de fiesta
+[2025-11-25 19:32:20] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 33101, Respuesta: 250 MORSE ..../---/-.--//...-/---/-.--//-.././/..-./.././.../-/.-
+
+[2025-11-25 19:32:20] Comunicación realizada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 33101
+[2025-11-25 19:32:20] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 33101, Respuesta: 221 Cerrando el servicio
+
+[2025-11-25 19:32:20] Comunicación realizada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 33101
+[2025-11-25 19:32:20] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: UDP, Puerto: 33101, Respuesta: 221 Cerrando el servicio
+
+[2025-11-25 19:32:21] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 57092, Respuesta: 240 OK
+
+[2025-11-25 19:32:21] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 57098, Respuesta: 240 OK
+
+[2025-11-25 19:32:21] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 57112, Respuesta: 500 Error de sintaxis
+
+[2025-11-25 19:32:21] Frase recibida - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 57112, Frase: FRASE Se acercan tormentas
+
+[2025-11-25 19:32:22] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 57092, Respuesta: 500 Error de sintaxis
+
+[2025-11-25 19:32:22] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 57098, Respuesta: 500 Error de sintaxis
+
+[2025-11-25 19:32:22] Frase recibida - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 57098, Frase: FRASE Lunes soleado
+
+[2025-11-25 19:32:22] Frase recibida - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 57092, Frase: FRASE SOS
+
+[2025-11-25 19:32:22] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 57112, Respuesta: 500 Error de sintaxis
+
+[2025-11-25 19:32:23] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 57092, Respuesta: 250 MORSE .../---/...
+
+[2025-11-25 19:32:23] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 57098, Respuesta: 250 MORSE .-../..-/-././...//.../---/.-.././.-/-../---
+
+[2025-11-25 19:32:23] Frase recibida - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 57098, Frase: FRASE Hoy voy de fiesta
+
+[2025-11-25 19:32:23] Frase recibida - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 57092, Frase: FRASE He sacado un 10
+
+[2025-11-25 19:32:23] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 57112, Respuesta: 240 OK
+
+[2025-11-25 19:32:24] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 57098, Respuesta: 250 MORSE ..../---/-.--//...-/---/-.--//-.././/..-./.././.../-/.-
+
+[2025-11-25 19:32:24] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 57092, Respuesta: 250 MORSE ...././/.../.-/-.-./.-/-../---//..-/-.//.----/-----
+
+[2025-11-25 19:32:24] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 57112, Respuesta: 500 Error de sintaxis
+
+[2025-11-25 19:32:24] Frase recibida - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 57112, Frase: FRASE Lunes soleado
+
+[2025-11-25 19:32:25] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 57098, Respuesta: 500 Error de sintaxis
+
+[2025-11-25 19:32:25] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 57092, Respuesta: 500 Error de sintaxis
+
+[2025-11-25 19:32:25] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 57112, Respuesta: 250 MORSE .-../..-/-././...//.../---/.-.././.-/-../---
+
+[2025-11-25 19:32:25] Frase recibida - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 57112, Frase: FRASE Hoy voy de fiesta
+
+[2025-11-25 19:32:29] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 57098, Respuesta: 221 Cerrando el servicio
+
+[2025-11-25 19:32:29] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 57092, Respuesta: 221 Cerrando el servicio
+
+[2025-11-25 19:32:29] Comunicación finalizada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 57098
+[2025-11-25 19:32:29] Comunicación finalizada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 57092
+[2025-11-25 19:32:29] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 57112, Respuesta: 250 MORSE ..../---/-.--//...-/---/-.--//-.././/..-./.././.../-/.-
+
+[2025-11-25 19:32:30] Respuesta enviada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 57112, Respuesta: 221 Cerrando el servicio
+
+[2025-11-25 19:32:30] Comunicación finalizada - Host: localhost, IP: 127.0.0.1, Protocolo: TCP, Puerto: 57112
+[2025-11-26 14:47:45] Comunicación realizada - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: TCP, Puerto: 48244
+[2025-11-26 14:47:45] Comunicación realizada - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: TCP, Puerto: 48246
+[2025-11-26 14:47:45] Comunicación realizada - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: TCP, Puerto: 48272
+[2025-11-26 14:47:45] Comunicación realizada - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: UDP, Puerto: 50025
+[2025-11-26 14:47:45] Respuesta enviada - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: UDP, Puerto: 50025, Respuesta: 220 Servicio preparado
+
+[2025-11-26 14:47:45] Comunicación realizada - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: UDP, Puerto: 35115
+[2025-11-26 14:47:45] Respuesta enviada - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: UDP, Puerto: 35115, Respuesta: 220 Servicio preparado
+
+[2025-11-26 14:47:45] Comunicación realizada - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: UDP, Puerto: 49715
+[2025-11-26 14:47:45] Respuesta enviada - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: UDP, Puerto: 49715, Respuesta: 220 Servicio preparado
+
+[2025-11-26 14:47:45] Comunicación realizada - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: UDP, Puerto: 50025
+[2025-11-26 14:47:45] Respuesta enviada - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: UDP, Puerto: 50025, Respuesta: 240 OK
+
+[2025-11-26 14:47:45] Comunicación realizada - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: UDP, Puerto: 35115
+[2025-11-26 14:47:45] Respuesta enviada - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: UDP, Puerto: 35115, Respuesta: 240 OK
+
+[2025-11-26 14:47:45] Comunicación realizada - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: UDP, Puerto: 49715
+[2025-11-26 14:47:45] Respuesta enviada - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: UDP, Puerto: 49715, Respuesta: 500 Error de sintaxis
+
+[2025-11-26 14:47:45] Comunicación realizada - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: UDP, Puerto: 50025
+[2025-11-26 14:47:45] Respuesta enviada - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: UDP, Puerto: 50025, Respuesta: 500 Error de sintaxis
+
+[2025-11-26 14:47:45] Comunicación realizada - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: UDP, Puerto: 35115
+[2025-11-26 14:47:45] Respuesta enviada - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: UDP, Puerto: 35115, Respuesta: 500 Error de sintaxis
+
+[2025-11-26 14:47:45] Comunicación realizada - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: UDP, Puerto: 49715
+[2025-11-26 14:47:45] Frase recibida - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: UDP, Puerto: 49715, Frase: Se acercan tormentas
+[2025-11-26 14:47:45] Respuesta enviada - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: UDP, Puerto: 49715, Respuesta: 250 MORSE ..././/.-/-.-././.-./-.-./.-/-.//-/---/.-./--/./-./-/.-/...
+
+[2025-11-26 14:47:45] Comunicación realizada - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: UDP, Puerto: 50025
+[2025-11-26 14:47:45] Frase recibida - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: UDP, Puerto: 50025, Frase: SOS
+[2025-11-26 14:47:45] Respuesta enviada - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: UDP, Puerto: 50025, Respuesta: 250 MORSE .../---/...
+
+[2025-11-26 14:47:45] Comunicación realizada - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: UDP, Puerto: 35115
+[2025-11-26 14:47:45] Frase recibida - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: UDP, Puerto: 35115, Frase: Lunes soleado
+[2025-11-26 14:47:45] Respuesta enviada - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: UDP, Puerto: 35115, Respuesta: 250 MORSE .-../..-/-././...//.../---/.-.././.-/-../---
+
+[2025-11-26 14:47:45] Comunicación realizada - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: UDP, Puerto: 49715
+[2025-11-26 14:47:45] Respuesta enviada - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: UDP, Puerto: 49715, Respuesta: 240 OK
+
+[2025-11-26 14:47:45] Comunicación realizada - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: UDP, Puerto: 50025
+[2025-11-26 14:47:45] Frase recibida - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: UDP, Puerto: 50025, Frase: He sacado un 10
+[2025-11-26 14:47:45] Respuesta enviada - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: UDP, Puerto: 50025, Respuesta: 250 MORSE ...././/.../.-/-.-./.-/-../---//..-/-.//.----/-----
+
+[2025-11-26 14:47:45] Comunicación realizada - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: UDP, Puerto: 35115
+[2025-11-26 14:47:45] Frase recibida - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: UDP, Puerto: 35115, Frase: Hoy voy de fiesta
+[2025-11-26 14:47:45] Respuesta enviada - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: UDP, Puerto: 35115, Respuesta: 250 MORSE ..../---/-.--//...-/---/-.--//-.././/..-./.././.../-/.-
+
+[2025-11-26 14:47:45] Comunicación realizada - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: UDP, Puerto: 49715
+[2025-11-26 14:47:45] Respuesta enviada - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: UDP, Puerto: 49715, Respuesta: 500 Error de sintaxis
+
+[2025-11-26 14:47:45] Comunicación realizada - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: UDP, Puerto: 50025
+[2025-11-26 14:47:45] Respuesta enviada - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: UDP, Puerto: 50025, Respuesta: 500 Error de sintaxis
+
+[2025-11-26 14:47:45] Comunicación realizada - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: UDP, Puerto: 35115
+[2025-11-26 14:47:45] Respuesta enviada - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: UDP, Puerto: 35115, Respuesta: 500 Error de sintaxis
+
+[2025-11-26 14:47:45] Comunicación realizada - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: UDP, Puerto: 49715
+[2025-11-26 14:47:45] Frase recibida - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: UDP, Puerto: 49715, Frase: Lunes soleado
+[2025-11-26 14:47:45] Respuesta enviada - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: UDP, Puerto: 49715, Respuesta: 250 MORSE .-../..-/-././...//.../---/.-.././.-/-../---
+
+[2025-11-26 14:47:45] Comunicación realizada - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: UDP, Puerto: 50025
+[2025-11-26 14:47:45] Respuesta enviada - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: UDP, Puerto: 50025, Respuesta: 221 Cerrando el servicio
+
+[2025-11-26 14:47:45] Comunicación realizada - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: UDP, Puerto: 35115
+[2025-11-26 14:47:45] Respuesta enviada - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: UDP, Puerto: 35115, Respuesta: 221 Cerrando el servicio
+
+[2025-11-26 14:47:45] Comunicación realizada - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: UDP, Puerto: 49715
+[2025-11-26 14:47:45] Frase recibida - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: UDP, Puerto: 49715, Frase: Hoy voy de fiesta
+[2025-11-26 14:47:45] Respuesta enviada - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: UDP, Puerto: 49715, Respuesta: 250 MORSE ..../---/-.--//...-/---/-.--//-.././/..-./.././.../-/.-
+
+[2025-11-26 14:47:45] Comunicación realizada - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: UDP, Puerto: 49715
+[2025-11-26 14:47:45] Respuesta enviada - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: UDP, Puerto: 49715, Respuesta: 221 Cerrando el servicio
+
+[2025-11-26 14:47:45] Comunicación realizada - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: UDP, Puerto: 49715
+[2025-11-26 14:47:45] Respuesta enviada - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: UDP, Puerto: 49715, Respuesta: 221 Cerrando el servicio
+
+[2025-11-26 14:47:46] Respuesta enviada - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: TCP, Puerto: 48244, Respuesta: 240 OK
+
+[2025-11-26 14:47:46] Respuesta enviada - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: TCP, Puerto: 48246, Respuesta: 240 OK
+
+[2025-11-26 14:47:46] Respuesta enviada - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: TCP, Puerto: 48272, Respuesta: 500 Error de sintaxis
+
+[2025-11-26 14:47:46] Frase recibida - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: TCP, Puerto: 48272, Frase: FRASE Se acercan tormentas
+
+[2025-11-26 14:47:47] Respuesta enviada - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: TCP, Puerto: 48244, Respuesta: 500 Error de sintaxis
+
+[2025-11-26 14:47:47] Respuesta enviada - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: TCP, Puerto: 48246, Respuesta: 500 Error de sintaxis
+
+[2025-11-26 14:47:47] Frase recibida - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: TCP, Puerto: 48244, Frase: FRASE Lunes soleado
+
+[2025-11-26 14:47:47] Frase recibida - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: TCP, Puerto: 48246, Frase: FRASE SOS
+
+[2025-11-26 14:47:47] Respuesta enviada - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: TCP, Puerto: 48272, Respuesta: 500 Error de sintaxis
+
+[2025-11-26 14:47:48] Respuesta enviada - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: TCP, Puerto: 48244, Respuesta: 250 MORSE .-../..-/-././...//.../---/.-.././.-/-../---
+
+[2025-11-26 14:47:48] Respuesta enviada - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: TCP, Puerto: 48246, Respuesta: 250 MORSE .../---/...
+
+[2025-11-26 14:47:48] Respuesta enviada - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: TCP, Puerto: 48272, Respuesta: 240 OK
+
+[2025-11-26 14:47:48] Frase recibida - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: TCP, Puerto: 48244, Frase: FRASE Hoy voy de fiesta
+
+[2025-11-26 14:47:48] Frase recibida - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: TCP, Puerto: 48246, Frase: FRASE He sacado un 10
+
+[2025-11-26 14:47:49] Respuesta enviada - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: TCP, Puerto: 48272, Respuesta: 500 Error de sintaxis
+
+[2025-11-26 14:47:49] Respuesta enviada - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: TCP, Puerto: 48244, Respuesta: 250 MORSE ..../---/-.--//...-/---/-.--//-.././/..-./.././.../-/.-
+
+[2025-11-26 14:47:49] Frase recibida - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: TCP, Puerto: 48272, Frase: FRASE Lunes soleado
+
+[2025-11-26 14:47:49] Respuesta enviada - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: TCP, Puerto: 48246, Respuesta: 250 MORSE ...././/.../.-/-.-./.-/-../---//..-/-.//.----/-----
+
+[2025-11-26 14:47:50] Respuesta enviada - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: TCP, Puerto: 48244, Respuesta: 500 Error de sintaxis
+
+[2025-11-26 14:47:50] Respuesta enviada - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: TCP, Puerto: 48272, Respuesta: 250 MORSE .-../..-/-././...//.../---/.-.././.-/-../---
+
+[2025-11-26 14:47:50] Respuesta enviada - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: TCP, Puerto: 48246, Respuesta: 500 Error de sintaxis
+
+[2025-11-26 14:47:50] Frase recibida - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: TCP, Puerto: 48272, Frase: FRASE Hoy voy de fiesta
+
+[2025-11-26 14:47:51] Respuesta enviada - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: TCP, Puerto: 48244, Respuesta: 221 Cerrando el servicio
+
+[2025-11-26 14:47:51] Comunicación finalizada - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: TCP, Puerto: 48244
+[2025-11-26 14:47:51] Respuesta enviada - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: TCP, Puerto: 48246, Respuesta: 221 Cerrando el servicio
+
+[2025-11-26 14:47:51] Respuesta enviada - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: TCP, Puerto: 48272, Respuesta: 250 MORSE ..../---/-.--//...-/---/-.--//-.././/..-./.././.../-/.-
+
+[2025-11-26 14:47:51] Comunicación finalizada - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: TCP, Puerto: 48246
+[2025-11-26 14:47:52] Respuesta enviada - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: TCP, Puerto: 48272, Respuesta: 221 Cerrando el servicio
+
+[2025-11-26 14:47:52] Comunicación finalizada - Host: nogal.fis.usal.es, IP: 212.128.144.105, Protocolo: TCP, Puerto: 48272

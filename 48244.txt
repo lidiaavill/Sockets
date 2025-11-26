@@ -1,5 +1,5 @@
-=== CLIENTE TCP - Puerto: 47100 ===
-Servidor: localhost
+=== CLIENTE TCP - Puerto: 48244 ===
+Servidor: nogal
 Protocolo: TCP
 Archivo de órdenes: ordenes1.txt
 
@@ -27,4 +27,4 @@ S: 221 Cerrando el servicio
 === Servidor cerró la conexión ===
 
 === Fin de la comunicación ===
-Finalizado: Sun Nov 23 21:22:32 2025
+Finalizado: Wed Nov 26 14:47:51 2025
