@@ -4,7 +4,7 @@
 
 Implementación de una aplicación cliente-servidor que proporciona un servicio de conversión de texto a código Morse a través de la red, utilizando sockets Berkeley en C. El servidor soporta tanto conexiones **TCP** como **UDP**, permitiendo que múltiples clientes se conecten simultáneamente.
 
-Este proyecto forma parte de la asignatura **Redes I (GII)** en la Universidad de Salamanca, bajo la dirección de Moreno, A.M., Bravo, S. y Vázquez, A.
+Este proyecto forma parte de la asignatura **Redes I (GII)** en la Universidad de Salamanca, bajo la dirección de Moreno, A.M.y Bravo, S.
 
 ## 🎯 Objetivos
 
@@ -279,46 +279,7 @@ El proyecto incluye 3 ficheros de prueba con diferentes escenarios:
 - Mensaje inicial vacío para obtener respuesta 220
 - Sistema de reintentos con timeouts (5 intentos, 6 segundos)
 - Manejo de `SIGALRM` para detectar timeouts
-
-## 📚 Tabla de Conversión Morse
-
-El servidor soporta conversión de:
-- **Letras**: A-Z (automáticamente en mayúsculas)
-- **Dígitos**: 0-9
-- **Espacios**: Convertidos a `/`
-
-**Ejemplos**:
-- `A` → `.-`
-- `Z` → `--..`
-- `0` → `-----`
-- `9` → `----.`
-
-## ⚠️ Consideraciones Importantes
-
-1. **Puerto fijo**: Ambas conexiones (TCP/UDP) usan puerto 53278
-2. **TAM_BUFFER = 516**: Límite estricto de protocolo (incluye `\r\n`)
-3. **Máquina destino**: Ejemplos usan `nogal` (host específico de USAL)
-4. **Permisos**: El script `lanzaServidor.sh` necesita permisos de ejecución
-5. **Semáforos**: Se crean/destruyen automáticamente al iniciar/finalizar servidor
-
-## 🐛 Debugging
-
-### Ver log del servidor en tiempo real
-```bash
-tail -f peticiones.log
-```
-
-### Compilar con símbolos de debug
-```bash
-gcc -g -Wall -o servidor servidor.c -lrt -lpthread
-gdb ./servidor
-```
-
-### Probar conectividad
-```bash
-nc -zv nogal 53278  # TCP
-nc -uzv nogal 53278 # UDP
-```
+`
 
 ## 📖 Referencias
 
@@ -333,6 +294,7 @@ nc -uzv nogal 53278 # UDP
 **Asignatura**: Redes I - Grado en Ingeniería Informática  
 **Universidad**: Universidad de Salamanca  
 **Autores del enunciado**: Moreno, A.M., Bravo, S., Vázquez, A.  
+**Autores de la implementación**: Carolina De Jesús Arolas y Lidia Villarreal Castán
 **Fecha**: 29/10/2025
 
 ## 📄 Licencia
@@ -343,4 +305,4 @@ Proyecto educativo - Universidad de Salamanca
 
 **Última actualización**: 26 de Noviembre de 2025
 
-Para preguntas o sugerencias sobre la implementación, contactar con los autores de la asignatura.
+
